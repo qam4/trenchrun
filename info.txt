@@ -1,0 +1,244 @@
+
+http://peterellisjones.com/post/39938456375/chess-engine-part-i-choosing-internal-data
+http://peterellisjones.com/post/41238723473/chess-engine-part-ii-move-encoding-and-move
+
+
+
+
+
+bitboard[WHITE_PAWNS]
+  ABCDEFGH
+8|        |8
+7|        |7
+6|        |6
+5|        |5
+4|        |4
+3|        |3
+2|xxxxxxxx|2
+1|        |1
+  ABCDEFGH
+
+
+https://chessprogramming.wikispaces.com/Square+Mapping+Considerations
+Little-Endian Rank-File Mapping (LERF)
+Rank 1 .. Rank 8 -> 0..7
+A-File .. H-File -> 0..7
+squareIndex {0..63} = 8*rankIndex + fileIndex;
+rankIndex   {0..7}  = squareIndex div 8; // squareIndex >> 3;
+fileIndex   {0..7}  = squareIndex mod 8; // squareIndex & 7;
+
+
+enum enumSquare {
+  a1, b1, c1, d1, e1, f1, g1, h1,
+  a2, b2, c2, d2, e2, f2, g2, h2,
+  a3, b3, c3, d3, e3, f3, g3, h3,
+  a4, b4, c4, d4, e4, f4, g4, h4,
+  a5, b5, c5, d5, e5, f5, g5, h5,
+  a6, b6, c6, d6, e6, f6, g6, h6,
+  a7, b7, c7, d7, e7, f7, g7, h7,
+  a8, b8, c8, d8, e8, f8, g8, h8
+};
+
+noWe         nort         noEa
+        +7    +8    +9
+            \  |  /
+west    -1 <-  0 -> +1    east
+            /  |  \
+        -9    -8    -7
+soWe         sout         soEa
+
+a-file             0x0101010101010101
+h-file             0x8080808080808080
+1st rank           0x00000000000000FF
+8th rank           0xFF00000000000000
+a1-h8 diagonal     0x8040201008040201
+h1-a8 antidiagonal 0x0102040810204080
+light squares      0x55AA55AA55AA55AA
+dark squares       0xAA55AA55AA55AA55
+
+
+
+https://chessprogramming.wikispaces.com/Efficient+Generation+of+Sliding+Piece+Attacks#Attack-Sets%20as%20Base%20for%20Bitboard%20Move-generation
+positiveRayAttacks = o  ^ (o - 2s);
+
+with o' = reverse (o)
+and  s' = reverse (s)
+negativeRayAttacks = reverse (o' ^ (o' - 2s'));
+negativeRayAttacks = o  ^  reverse (o' - 2s');
+
+lineAttacks = positiveRayAttacks ^ negativeRayAttacks;
+lineAttacks =         o ^ (o-2s) ^ reverse( o'-2s') ^ o
+lineAttacks =             (o-2s) ^ reverse( o'-2s')
+
+U64 diagonalAttacks(U64 occ, int sqOfSlider) {
+   U64 forward, reverse, slider, lineMask;
+
+   lineMask = diagonalMaskEx[sqOfSlider]; // excludes square of slider
+   slider   = singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
+
+   forward  = occ & lineMask; // also performs the first subtraction by clearing the s in o
+   reverse  = byteswap( forward ); // o'-s'
+   forward -=         ( slider  ); // o -2s
+   reverse -= byteswap( slider  ); // o'-2s'
+   forward ^= byteswap( reverse );
+   return forward & lineMask;      // mask the line again
+}
+
+---------------------------------------------------------
+MASKS for empty board:
+https://chessprogramming.wikispaces.com/On+an+empty+Board
+noWe         nort         noEa
+        +7    +8    +9
+            \  |  /
+west    -1 <-  0 -> +1    east
+            /  |  \
+        -9    -8    -7
+soWe         sout         soEa
+southwest    south   southeast
+
+Ray attacks
+Rays using Line
+lookup:
+positiveRay[sq] = lineAttacks[sq] & (0 - 2*singleBit[sq]);
+negativeRay[sq] = lineAttacks[sq] & (singleBit[sq] - 1);
+shifts:
+positiveRay[sq] = lineAttacks[sq] & (C64(-2) << sq);
+negativeRay[sq] = lineAttacks[sq] & ((C64(1) << sq) - 1);
+
+Positive rays:
+East (+1)           Nort (+8)            NoEa (+9)           NoWe (+7)
+. . . . . . . .     . . . 1 . . . .      . . . . . . . 1     . . . . . . . .
+. . . . . . . .     . . . 1 . . . .      . . . . . . 1 .     1 . . . . . . .
+. . . . . . . .     . . . 1 . . . .      . . . . . 1 . .     . 1 . . . . . .
+. . . . . . . .     . . . 1 . . . .      . . . . 1 . . .     . . 1 . . . . .
+. . . R 1 1 1 1     . . . R . . . .      . . . B . . . .     . . . B . . . .
+. . . . . . . .     . . . . . . . .      . . . . . . . .     . . . . . . . .
+. . . . . . . .     . . . . . . . .      . . . . . . . .     . . . . . . . .
+. . . . . . . .     . . . . . . . .      . . . . . . . .     . . . . . . . .
+North:
+U64 nort = C64(0x0101010101010100);
+for (int sq=0; sq < 64; sq++, nort <<= 1)
+   rayAttacks[sq][Nort] = nort;
+
+NorthEast:
+U64 noea = C64(0x8040201008040200);
+for (int f=0; f < 8; f++, noea = eastOne(noea) {
+   U64 ne = noea;
+   for (int r8 = 0; r8 < 8*8; r8 += 8, ne <<= 8)
+      rayAttacks[r8+f][NoEa] = ne;
+}
+
+U64 eastMaskEx(int sq) {
+   const U64 one = 1;
+   return 2*( (one << (sq|7)) - (one << sq) );
+}
+U64 nortMaskEx(int sq) {
+   return C64(0x0101010101010100) << sq;
+}
+
+Negative rays:
+West (-1)           Sout (-8)            SoWe (-9)           SoEa (-7)
+. . . . . . . .     . . . . . . . .      . . . . . . . .     . . . . . . . .
+. . . . . . . .     . . . . . . . .      . . . . . . . .     . . . . . . . .
+. . . . . . . .     . . . . . . . .      . . . . . . . .     . . . . . . . .
+. . . . . . . .     . . . . . . . .      . . . . . . . .     . . . . . . . .
+1 1 1 R . . . .     . . . R . . . .      . . . B . . . .     . . . B . . . .
+. . . . . . . .     . . . 1 . . . .      . . 1 . . . . .     . . . . 1 . . .
+. . . . . . . .     . . . 1 . . . .      . 1 . . . . . .     . . . . . 1 . .
+. . . . . . . .     . . . 1 . . . .      1 . . . . . . .     . . . . . . 1 .
+South:
+U64 sout = C64(0x0080808080808080);
+for (int sq=63; sq >= 0; sq--, sout >>= 1)
+   rayAttacks[sq][Sout] = sout;
+
+U64 westMaskEx(int sq) {
+   const U64 one = 1;
+   return (one << sq) - (one << (sq&56));
+}
+
+U64 soutMaskEx(int sq) {
+   return C64(0x0080808080808080) >> (sq ^ 63);
+}
+
+--------------------------------------------------------------------------
+Line attacks:
+Rank                File                 Diagonal            Anti-Diagonal
+. . . . . . . .     . . . 1 . . . .      . . . . . . . 1     . . . . . . . .
+. . . . . . . .     . . . 1 . . . .      . . . . . . 1 .     1 . . . . . . .
+. . . . . . . .     . . . 1 . . . .      . . . . . 1 . .     . 1 . . . . . .
+. . . . . . . .     . . . 1 . . . .      . . . . 1 . . .     . . 1 . . . . .
+1 1 1 R 1 1 1 1     . . . R . . . .      . . . B . . . .     . . . B . . . .
+. . . . . . . .     . . . 1 . . . .      . . 1 . . . . .     . . . . 1 . . .
+. . . . . . . .     . . . 1 . . . .      . 1 . . . . . .     . . . . . 1 . .
+. . . . . . . .     . . . 1 . . . .      1 . . . . . . .     . . . . . . 1 .
+-------------
+RankAttacks[sq]         = EastAttacks[sq] | WestAttacks[sq];
+FileAttacks[sq]         = NortAttacks[sq] | SoutAttacks[sq];
+DiagonalAttacks[sq]     = NoEaAttacks[sq] | SoWeAttacks[sq];
+AntiDiagonalAttacks[sq] = NoWeAttacks[sq] | SoEaAttacks[sq];
+
+
+U64 rankMask(int sq) {return  C64(0xff) << (sq & 56);}
+
+U64 fileMask(int sq) {return C64(0x0101010101010101) << (sq & 7);}
+
+U64 diagonalMask(int sq) {
+   const U64 maindia = C64(0x8040201008040201);
+   int diag =8*(sq & 7) - (sq & 56);
+   int nort = -diag & ( diag >> 31);
+   int sout =  diag & (-diag >> 31);
+   return (maindia >> sout) << nort;
+}
+
+U64 antiDiagMask(int sq) {
+   const U64 maindia = C64(0x0102040810204080);
+   int diag =56- 8*(sq&7) - (sq&56);
+   int nort = -diag & ( diag >> 31);
+   int sout =  diag & (-diag >> 31);
+   return (maindia >> sout) << nort;
+}
+excluding the square bit:
+U64 rankMaskEx    (int sq) {return (C64(1) << sq) ^ rankMask(sq);}
+U64 fileMaskEx    (int sq) {return (C64(1) << sq) ^ fileMask(sq);}
+U64 diagonalMaskEx(int sq) {return (C64(1) << sq) ^ diagonalMask(sq);}
+U64 antiDiagMaskEx(int sq) {return (C64(1) << sq) ^ antiDiagMask(sq);}
+
+Piece attacks:
+    Rook                 Queen               Bishop
+. . . 1 . . . .      . . . 1 . . . 1      . . . . . . . 1
+. . . 1 . . . .      1 . . 1 . . 1 .      1 . . . . . 1 .
+. . . 1 . . . .      . 1 . 1 . 1 . .      . 1 . . . 1 . .
+. . . 1 . . . .      . . 1 1 1 . . .      . . 1 . 1 . . .
+1 1 1 R 1 1 1 1      1 1 1 Q 1 1 1 1      . . . B . . . .
+. . . 1 . . . .      . . 1 1 1 . . .      . . 1 . 1 . . .
+. . . 1 . . . .      . 1 . 1 . 1 . .      . 1 . . . 1 . .
+. . . 1 . . . .      1 . . 1 . . 1 .      1 . . . . . 1 .
+
+
+U64 rookMask    (int sq) {return rankMask(sq)     | fileMask(sq);}
+U64 bishopMask  (int sq) {return diagonalMask(sq) | antiDiagMask(sq);}
+
+
+U64 rookMaskEx  (int sq) {return rankMask(sq)     ^ fileMask(sq);}
+U64 bishopMaskEx(int sq) {return diagonalMask(sq) ^ antiDiagMask(sq);}
+
+U64 queenMask   (int sq) {return rookMask(sq)     | bishopMask(sq);}
+U64 queenMaskEx (int sq) {return rookMask(sq)     ^ bishopMask(sq);}
+
+
+
+occupied=11000101
+slider  =00000100
+o-s     =11000001
+o-2s    =10111101
+
+left=o^(o-2s)=01111000
+reverse(10011)=11001
+right=(o'^(o'-2s'))'=00000011
+reverse(a^b)=reverse(a)^reverse(b)
+right=o^(o'-2s')'
+lineAttacks=right^left
+lineAttacks= (o-2s) ^ (o'-2s')'
+
+with m=mask
+lineAttacks=(((o&m)-2s) ^ ((o&m)'-2s')')&m

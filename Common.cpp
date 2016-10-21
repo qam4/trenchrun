@@ -127,8 +127,8 @@ string is_valid_move_err(Move_t move, const class Board &board){
         if((rows != 0) && (files != 0)) return "tie-fighter moves horizontally or vertically";
 		if(((board.last_move_sideways() & (1<<side)) != 0) && (rows == 0)) return "tie-fighter can not move horizontally twice in a row";
 		if(!is_capture(move)){
-			if((side==WHITE) && ((to&(~C64(0xf)))<(from&(~C64(0xf))))) return "tie-fighter cannot move backward if the move is not a capture";
-			if((side==BLACK) && ((to&(~C64(0xf)))>(from&(~C64(0xf))))) return "tie-fighter cannot move backward if the move is not a capture";
+			if((side==WHITE) && ((to&(~C64(0x7)))<(from&(~C64(0x7))))) return "tie-fighter cannot move backward if the move is not a capture";
+			if((side==BLACK) && ((to&(~C64(0x7)))>(from&(~C64(0x7))))) return "tie-fighter cannot move backward if the move is not a capture";
 		}
 	}
 
@@ -145,8 +145,8 @@ string is_valid_move_err(Move_t move, const class Board &board){
 
 	// check death star can only be captures backwards
 	if(is_capture(move)) {
-		if((side==WHITE) && (captured==BLACK_DEATHSTAR) && ((to&(~C64(0xf)))>(from&(~C64(0xf))))) return "death star can only be captured backwards";
-		if((side==BLACK) && (captured==WHITE_DEATHSTAR) && ((to&(~C64(0xf)))<(from&(~C64(0xf))))) return "death star can only be captured backwards";
+		if((side==WHITE) && (captured==BLACK_DEATHSTAR) && ((to&(~C64(0x7)))>(from&(~C64(0x7))))) return "death star can only be captured backwards";
+		if((side==BLACK) && (captured==WHITE_DEATHSTAR) && ((to&(~C64(0x7)))<(from&(~C64(0x7))))) return "death star can only be captured backwards";
 	}
 
 	#if 0

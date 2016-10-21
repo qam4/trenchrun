@@ -108,12 +108,15 @@ U32 Parser::move(string str, Board &board){
 	}
 	U8 flags = NO_FLAGS|board.last_move_sideways();
 	// Check if tie-fighter sideway move
-	//cout << "piece="<< ((piece&(~1)) == TIEFIGHTER) <<((to&(~C64(0xf))) == (from&(~C64(0xf))))<< ",from="<<(int)(from&(~C64(0xf)))<< ", to=" << (int)(to&(~C64(0xf)))<<endl;
-	if(((piece&(~1)) == TIEFIGHTER) && ((to&(~C64(0xf))) == (from&(~C64(0xf))))) {
+	//cout << "piece=" << ((piece&(~1)) == TIEFIGHTER)
+	// << ((to&(~C64(0x7))) == (from&(~C64(0x7))))
+	// << ", from=" << (int)from << "-" << (int)(from&(~C64(0x7)))
+	// << ", to=" << (int)to << "-" << (int)(to&(~C64(0x7))) << endl;
+	if(((piece&(~1)) == TIEFIGHTER) && ((to&(~C64(0x7))) == (from&(~C64(0x7))))) {
 		//cout << "this is a move sideways"  << endl;
 		flags |= MOVED_SIDEWAYS;
 	}
 	move |= flags << 16;
-	cout <<"move="<< hex<<move << endl;
+	//cout <<"move="<< hex<<move << endl;
 	return move;
 }

@@ -65,7 +65,7 @@ void MoveGenerator::add_moves_check(U8 from, U64 targets, class MoveList& list, 
             if(!(((capture&(~1))==DEATHSTAR) && ( ((side==WHITE) && (to > from)) || ((side==BLACK) && (to < from)))))
             {
                 //cout<<"capture:"<<capture<<endl;
-                move = from | (to << 8) | (flags<<16) | (capture << 24) ;
+                move = from | (to << 8) | (flags<<16) | (capture << 24);
                 list.push(move);
             }
         } else {
@@ -224,7 +224,7 @@ U64 MoveGenerator::rankAttacks(U64 occ, int sq) {
 void MoveGenerator::add_tiefighter_moves(class MoveList &list, const class Board &board, const int side){
     U64 tiefighters = board.bitboards[TIEFIGHTER|side];
     U64 occupied = board.bitboards[WHITE] | board.bitboards[BLACK];
-    U64 friendly = board.bitboards[side] | board.bitboards[WALL|!side]; // own pieces and walls
+    U64 friendly = board.bitboards[side] | board.bitboards[BLACK_WALL] | board.bitboards[WHITE_WALL] | BOARD_LIMITS; // own pieces and walls
 
     #if 0
     cout << "tiefighters=0x" << hex << tiefighters<<endl;
@@ -243,12 +243,12 @@ void MoveGenerator::add_tiefighter_moves(class MoveList &list, const class Board
         if((board.last_move_sideways() & (1<<side)) == 0) {
             targets = rankAttacks(occupied, from);
             targets &= ~(friendly | board.bitboards[DEATHSTAR|!side]);
-            add_moves(from, targets, list, board, MOVED_SIDEWAYS|board.last_move_sideways());
+            add_moves(from, targets, list, board, MOVED_SIDEWAYS);
         }
         // Add file attacks, can only move backwards if capture
         targets = fileAttacks(occupied, from);
         targets &= ~(friendly);
-        add_moves_check(from, targets, list, board, NO_FLAGS|board.last_move_sideways(), side);
+        add_moves_check(from, targets, list, board, NO_FLAGS, side);
 
         tiefighters &= tiefighters - 1;
     }
@@ -258,7 +258,7 @@ void MoveGenerator::add_tiefighter_moves(class MoveList &list, const class Board
 void MoveGenerator::add_xwing_moves(class MoveList &list, const class Board &board, const int side){
     U64 xwings = board.bitboards[XWING|side];
     U64 occupied = board.bitboards[WHITE] | board.bitboards[BLACK];
-    U64 friendly = board.bitboards[side] | board.bitboards[WALL|!side]; // own pieces and walls
+    U64 friendly = board.bitboards[side] | board.bitboards[BLACK_WALL] | board.bitboards[WHITE_WALL] | BOARD_LIMITS; // own pieces and walls
 
     while(xwings){
         U8 from = bit_scan_forward(xwings);

@@ -50,6 +50,7 @@ const string PIECE_CHARS = "-E+~xXtT@*";
 //
 const U8 WHITE_MOVED_SIDEWAYS = 1;
 const U8 BLACK_MOVED_SIDEWAYS = 2;
+const U8 LAST_MOVE_SIDEWAYS_MASK = 3;
 
 // SQUARES
 
@@ -148,5 +149,7 @@ const U64 ROW_5 = 0xFFULL << (4*8);
 const U64 ROW_6 = 0xFFULL << (5*8);
 const U64 ROW_7 = 0xFFULL << (6*8);
 const U64 ROW_8 = 0xFFULL << (7*8);
+
+const U64 BOARD_LIMITS = FILE_H | ROW_8;
 
 #endif /* CONSTANTS_H */

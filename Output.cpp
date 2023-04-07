@@ -9,7 +9,7 @@
 #define MAX_ROW 6
 #define MAX_COL 6
 
-string Output::board(Board board){
+string Output::board(const class Board board){
     stringstream ss;
     for(int row = MAX_ROW; row >= 0; row--){
         ss << row + 1 << "  ";
@@ -90,5 +90,35 @@ string Output::movelist(const class MoveList &list, const class Board &board){
             ss << endl;
         }
     }
+    return ss.str();
+}
+
+string Output::board_with_movelist(const class MoveList &list, const class Board &board){
+    stringstream ss;
+    for(int row = MAX_ROW; row >= 0; row--){
+        ss << row + 1 << "  ";
+        for(int col = 0; col <= MAX_COL; col++){
+            int square = (row * 8) + col;
+            string piece = Output::piece(board[square]);
+
+            for(int i = 0; i < list.length(); i++){
+                Move_t move = list[i];
+                if (move_to(move) == square)
+                {
+                    piece = '.';
+                    if (is_capture(move))
+                    {
+                        piece = 'C';
+                    }
+                }
+            }
+            ss << piece << " ";
+        }
+        ss << endl;
+    }
+    ss << endl;
+    ss << "   A B C D E F G " << endl;
+    ss << ((board.side_to_move() == WHITE) ? "WHITE" : "BLACK") << " turn" << endl;
+    //ss << "last_move_sideways=" << (int)board.last_move_sideways() << endl;
     return ss.str();
 }

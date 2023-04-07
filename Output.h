@@ -20,6 +20,7 @@ public:
     static string move(Move_t move, const class Board &board);
     static string move_fancy(Move_t move, const class Board &board);
     static string movelist(const class MoveList &list, const class Board &board);
+    static string board_with_movelist(const class MoveList &list, const class Board &board);
     static string square(U8 square);
     static string piece(U8 piece);
 };

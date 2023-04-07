@@ -4,7 +4,7 @@
  */
 
 #ifndef MOVELIST_H
-#define	MOVELIST_H
+#define MOVELIST_H
 
 #include "Common.h"
 #include "Board.h"
@@ -37,4 +37,4 @@ public:
     bool contains_valid_moves(const class Board &board);
 };
 
-#endif	/* MOVELIST_H */
+#endif /* MOVELIST_H */

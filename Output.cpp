@@ -19,10 +19,10 @@ string Output::board(Board board){
         }
         ss << endl;
     }
-	ss << endl;
+    ss << endl;
     ss << "   A B C D E F G " << endl;
-	ss << ((board.side_to_move() == WHITE) ? "WHITE" : "BLACK") << " turn" << endl;
-	//ss << "last_move_sideways=" << (int)board.last_move_sideways() << endl;
+    ss << ((board.side_to_move() == WHITE) ? "WHITE" : "BLACK") << " turn" << endl;
+    //ss << "last_move_sideways=" << (int)board.last_move_sideways() << endl;
     return ss.str();
 }
 
@@ -36,7 +36,7 @@ string Output::bitboard(U64 bb){
         }
         ss << endl;
     }
-	ss << endl;
+    ss << endl;
     ss << "   A B C D E F G " << endl;
     return ss.str();
 }
@@ -74,7 +74,7 @@ string Output::move_fancy(Move_t move, const class Board &board){
         ss << 'x' << Output::piece(move_captured(move)&(~1));
     }
     ss << Output::square(move_to(move));
-	ss << (((move_flags(move) & MOVED_SIDEWAYS) != 0) ? "-" : "");
+    ss << (((move_flags(move) & MOVED_SIDEWAYS) != 0) ? "-" : "");
     return ss.str();
 }
 

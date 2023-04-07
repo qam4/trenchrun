@@ -4,12 +4,24 @@
  */
 
 #ifndef CONSTANTS_H
-#define	CONSTANTS_H
+#define CONSTANTS_H
 
 #include "Common.h"
 
+/*
+   Initial position
 
-//
+7  - T T - T T - (BLACK)
+6  - - ~ * ~ - -
+5  X X - - - X X
+4  - - - - - - -
+3  x x - - - x x
+2  - - + @ + - -
+1  - t t - t t -  (WHITE)
+
+   A B C D E F G
+*/
+
 const int INFINITY = 1000;
 
 // PIECES
@@ -24,14 +36,14 @@ const U8 XWING = 4;
 const U8 TIEFIGHTER = 6;
 const U8 DEATHSTAR = 8;
 
-const U8 WHITE_WALL = 2;
-const U8 BLACK_WALL = 3;
-const U8 WHITE_XWING = 4;
-const U8 BLACK_XWING = 5;
-const U8 WHITE_TIEFIGHTER   = 6;
-const U8 BLACK_TIEFIGHTER   = 7;
-const U8 WHITE_DEATHSTAR = 8;
-const U8 BLACK_DEATHSTAR = 9;
+const U8 WHITE_WALL = 2;       // +
+const U8 BLACK_WALL = 3;       // ~
+const U8 WHITE_XWING = 4;      // x
+const U8 BLACK_XWING = 5;      // X
+const U8 WHITE_TIEFIGHTER = 6; // t
+const U8 BLACK_TIEFIGHTER = 7; // T
+const U8 WHITE_DEATHSTAR = 8;  // @
+const U8 BLACK_DEATHSTAR = 9;  // *
 
 const string PIECE_CHARS = "-E+~xXtT@*";
 
@@ -137,4 +149,4 @@ const U64 ROW_6 = 0xFFULL << (5*8);
 const U64 ROW_7 = 0xFFULL << (6*8);
 const U64 ROW_8 = 0xFFULL << (7*8);
 
-#endif	/* CONSTANTS_H */
+#endif /* CONSTANTS_H */

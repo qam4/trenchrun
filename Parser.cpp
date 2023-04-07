@@ -18,7 +18,7 @@ class Board Parser::parse_fen(string fen){
         while(fen[pos] == '/') pos++;
         for(int col = 0; col < 8; col++){
             char c = fen[pos++];
-			//cout << "[" << row<< "," << col << "]=" << c << endl;
+            //cout << "[" << row<< "," << col << "]=" << c << endl;
             // if number skip ahead that many columns
             if (c >= '1' && c <= '8'){
                 col += c - '1';
@@ -36,15 +36,15 @@ class Board Parser::parse_fen(string fen){
     board.set_side_to_move(side_to_move);
 
     if (pos++ >= len) return board;
-	while(fen[pos] == ' ') if (pos++ >= len) return board;
+    while(fen[pos] == ' ') if (pos++ >= len) return board;
 
     // last move sideways
     U8 last_move_sideways = 0;
     while(fen[pos] != ' '){
-		//cout << "fen:msw=" << fen[pos] << endl;
+        //cout << "fen:msw=" << fen[pos] << endl;
         last_move_sideways |= Parser::last_move_sideways(fen[pos]);
-		board.set_last_move_sideways(last_move_sideways);
-		if (pos++ >= len) return board;
+        board.set_last_move_sideways(last_move_sideways);
+        if (pos++ >= len) return board;
     }
 
     while(fen[pos] == ' ') if (pos++ >= len) return board;
@@ -78,45 +78,45 @@ U8 Parser::last_move_sideways(char c){
 }
 
 U8 Parser::square(char sq[]){
-	if((sq[0] < 'A') || (sq[0] > 'G')) return NULL_SQUARE;
-	if((sq[1] < '1') || (sq[1] > '7')) return NULL_SQUARE;
+    if((sq[0] < 'A') || (sq[0] > 'G')) return NULL_SQUARE;
+    if((sq[1] < '1') || (sq[1] > '7')) return NULL_SQUARE;
 
-	int col = sq[0] - 'A';
+    int col = sq[0] - 'A';
     int row = sq[1] - '1';
     return (row * 8) + col;
 }
 
 U32 Parser::move(string str, Board &board){
-	int len = str.length();
-	U8 from, to, piece, capture;
-	U32 move = 0;
+    int len = str.length();
+    U8 from, to, piece, capture;
+    U32 move = 0;
 
-	// note: is it ok to return 0 for errors?
-	if (len!=4) return 0;
+    // note: is it ok to return 0 for errors?
+    if (len!=4) return 0;
 
-	from = square(&str[0]);
-	to = square(&str[2]);
-	piece = board[from];
-	capture = board[to];
-	if((from==NULL_SQUARE) || (to==NULL_SQUARE)) return 0;
-	if(capture!=EMPTY) {
-		//cout << "this is a capture"  << endl;
-		move = build_capture(from, to, capture);
-	} else {
-		//cout << "this is a move"  << endl;
-		move = build_move(from, to);
-	}
-	U8 flags = NO_FLAGS|board.last_move_sideways();
-	// Check if tie-fighter sideway move
-	//cout << "piece=" << ((piece&(~1)) == TIEFIGHTER)
-	// << ((to&(~C64(0x7))) == (from&(~C64(0x7))))
-	// << ", from=" << (int)from << "-" << (int)(from&(~C64(0x7)))
-	// << ", to=" << (int)to << "-" << (int)(to&(~C64(0x7))) << endl;
-	if(((piece&(~1)) == TIEFIGHTER) && ((to&(~C64(0x7))) == (from&(~C64(0x7))))) {
-		//cout << "this is a move sideways"  << endl;
-		flags |= MOVED_SIDEWAYS;
-	}
-	move |= flags << 16;
-	//cout <<"move="<< hex<<move << endl;
-	return move;
+    from = square(&str[0]);
+    to = square(&str[2]);
+    piece = board[from];
+    capture = board[to];
+    if((from==NULL_SQUARE) || (to==NULL_SQUARE)) return 0;
+    if(capture!=EMPTY) {
+        //cout << "this is a capture"  << endl;
+        move = build_capture(from, to, capture);
+    } else {
+        //cout << "this is a move"  << endl;
+        move = build_move(from, to);
+    }
+    U8 flags = NO_FLAGS|board.last_move_sideways();
+    // Check if tie-fighter sideway move
+    //cout << "piece=" << ((piece&(~1)) == TIEFIGHTER)
+    // << ((to&(~C64(0x7))) == (from&(~C64(0x7))))
+    // << ", from=" << (int)from << "-" << (int)(from&(~C64(0x7)))
+    // << ", to=" << (int)to << "-" << (int)(to&(~C64(0x7))) << endl;
+    if(((piece&(~1)) == TIEFIGHTER) && ((to&(~C64(0x7))) == (from&(~C64(0x7))))) {
+        //cout << "this is a move sideways"  << endl;
+        flags |= MOVED_SIDEWAYS;
+    }
+    move |= flags << 16;
+    //cout <<"move="<< hex<<move << endl;
+    return move;
 }

@@ -4,7 +4,7 @@
  */
 
 #ifndef MOVES_H
-#define	MOVES_H
+#define MOVES_H
 
 #include "Types.h"
 
@@ -26,4 +26,4 @@ U8 inline move_captured(Move_t move){ return (move & 0xFF000000) >> 24; }
 U32 inline move_flags(Move_t move){ return (move & 0xFF0000) >> 16; }
 
 
-#endif	/* MOVES_H */
+#endif /* MOVES_H */

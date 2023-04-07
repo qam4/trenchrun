@@ -4,7 +4,7 @@
  */
 
 #ifndef COMMON_H
-#define	COMMON_H
+#define COMMON_H
 
 #include <iostream>
 #include <sstream>
@@ -35,4 +35,4 @@ bool inline is_valid_piece(U8 piece){ return (piece >= WHITE_WALL) && (piece <= 
 bool inline is_valid_square(int square){ return (square >= 0) && (square <= 64); }
 bool is_valid_move(Move_t move, const class Board &board);
 
-#endif	/* COMMON_H */
+#endif /* COMMON_H */

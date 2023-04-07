@@ -6,7 +6,7 @@
  */
 
 #ifndef OUTPUT_H
-#define	OUTPUT_H
+#define OUTPUT_H
 
 #include "Common.h"
 #include "Board.h"
@@ -24,4 +24,4 @@ public:
     static string piece(U8 piece);
 };
 
-#endif	/* OUTPUT_H */
+#endif /* OUTPUT_H */

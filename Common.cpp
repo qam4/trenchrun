@@ -30,11 +30,11 @@ string is_valid_move_err(Move_t move, const class Board &board){
     int from = move_from(move);
     int to = move_to(move);
     int mover = board[from];
-	int destination = board[to];
+    int destination = board[to];
     int captured = move_captured(move);
     //[fm]int promote_to = move_promote_to(move);
     //[not used]int flags = move_flags(move);
-	#if 0
+    #if 0
     // check castle first
     if(is_castle(move)){
         if((move & 0xFFFFFF) != 0) return "Castle move shouldn't have data in lower 3 bytes";
@@ -56,18 +56,18 @@ string is_valid_move_err(Move_t move, const class Board &board){
         // still need to add checks
         assert(false); // implement stuff
     }
-	#endif
+    #endif
     if(mover == EMPTY) return "mover doesn't exist in board";
     if((mover&1) != side) return "mover belongs to wrong side";
-	if(((mover&(~1)) != TIEFIGHTER) && ((mover&(~1)) != XWING)) return "piece can't move";
-	if((destination&(~1)) == WALL) return "can't move into a wall";
+    if(((mover&(~1)) != TIEFIGHTER) && ((mover&(~1)) != XWING)) return "piece can't move";
+    if((destination&(~1)) == WALL) return "can't move into a wall";
 
     // if capture make sure something to capture
     if(is_capture(move)){
         if(captured == EMPTY) return "can't find captured piece";
         if((captured&1) == side) return "can't capture friendly piece";
     }
-	#if 0
+    #if 0
     // if EP capture make sure correct square
     if(is_ep_capture(move)){
         if(side == BLACK){
@@ -115,41 +115,41 @@ string is_valid_move_err(Move_t move, const class Board &board){
             if(mover != WHITE_PAWN) return "only pawn can pawn double push";
         }
     }
-	#endif
+    #endif
     U32 rows = abs((from&56)-(to&56))>>3;
     U32 files = abs((from&7)-(to&7));
 
-	// if tie-fighter
-	// check only move along files or rows
-	// check for move sideways rule
-	// check move forward rule
+    // if tie-fighter
+    // check only move along files or rows
+    // check for move sideways rule
+    // check move forward rule
     if((mover&(~1))==TIEFIGHTER){
         if((rows != 0) && (files != 0)) return "tie-fighter moves horizontally or vertically";
-		if(((board.last_move_sideways() & (1<<side)) != 0) && (rows == 0)) return "tie-fighter can not move horizontally twice in a row";
-		if(!is_capture(move)){
-			if((side==WHITE) && ((to&(~C64(0x7)))<(from&(~C64(0x7))))) return "tie-fighter cannot move backward if the move is not a capture";
-			if((side==BLACK) && ((to&(~C64(0x7)))>(from&(~C64(0x7))))) return "tie-fighter cannot move backward if the move is not a capture";
-		}
-	}
+        if(((board.last_move_sideways() & (1<<side)) != 0) && (rows == 0)) return "tie-fighter can not move horizontally twice in a row";
+        if(!is_capture(move)){
+            if((side==WHITE) && ((to&(~C64(0x7)))<(from&(~C64(0x7))))) return "tie-fighter cannot move backward if the move is not a capture";
+            if((side==BLACK) && ((to&(~C64(0x7)))>(from&(~C64(0x7))))) return "tie-fighter cannot move backward if the move is not a capture";
+        }
+    }
 
-	// if xwings
-	// check only move along diagonal or antidiagonal
-	// check move forward rule
-	if((mover&(~1))==XWING){
+    // if xwings
+    // check only move along diagonal or antidiagonal
+    // check move forward rule
+    if((mover&(~1))==XWING){
         if(rows != files) return "xwing moves diagonally";
-		if(!is_capture(move)){
-			if((side==WHITE) && (to<from)) return "xwing cannot move backward if the move is not a capture";
-			if((side==BLACK) && (to>from)) return "xwing cannot move backward if the move is not a capture";
-		}
-	}
+        if(!is_capture(move)){
+            if((side==WHITE) && (to<from)) return "xwing cannot move backward if the move is not a capture";
+            if((side==BLACK) && (to>from)) return "xwing cannot move backward if the move is not a capture";
+        }
+    }
 
-	// check death star can only be captures backwards
-	if(is_capture(move)) {
-		if((side==WHITE) && (captured==BLACK_DEATHSTAR) && ((to&(~C64(0x7)))>(from&(~C64(0x7))))) return "death star can only be captured backwards";
-		if((side==BLACK) && (captured==WHITE_DEATHSTAR) && ((to&(~C64(0x7)))<(from&(~C64(0x7))))) return "death star can only be captured backwards";
-	}
+    // check death star can only be captures backwards
+    if(is_capture(move)) {
+        if((side==WHITE) && (captured==BLACK_DEATHSTAR) && ((to&(~C64(0x7)))>(from&(~C64(0x7))))) return "death star can only be captured backwards";
+        if((side==BLACK) && (captured==WHITE_DEATHSTAR) && ((to&(~C64(0x7)))<(from&(~C64(0x7))))) return "death star can only be captured backwards";
+    }
 
-	#if 0
+    #if 0
     // if knight make sure rows moved ^ files moves = 3
     if((mover&(~1))==KNIGHT){
         if((rows^files) != 3) return "knight must move 2 rows and 1file (or vice versa)";
@@ -165,6 +165,6 @@ string is_valid_move_err(Move_t move, const class Board &board){
         if(rows > 1) return "king can't move more than 1 row";
         if(files > 1) return "king can't move more than 1 file";
     }
-	#endif
+    #endif
     return "";
 }

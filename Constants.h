@@ -53,17 +53,17 @@ const U8 BLACK_MOVED_SIDEWAYS = 2;
 
 // SQUARES
 
-const int A1 =  0;
-const int B1 =  1;
-const int C1 =  2;
-const int D1 =  3;
-const int E1 =  4;
-const int F1 =  5;
-const int G1 =  6;
-const int H1 =  7;
+const int A1 = 0;
+const int B1 = 1;
+const int C1 = 2;
+const int D1 = 3;
+const int E1 = 4;
+const int F1 = 5;
+const int G1 = 6;
+const int H1 = 7;
 
-const int A2 =  8;
-const int B2 =  9;
+const int A2 = 8;
+const int B2 = 9;
 const int C2 = 10;
 const int D2 = 11;
 const int E2 = 12;
@@ -140,14 +140,14 @@ const U64 FILE_H = 0x0101010101010101ULL << 7;
 
 // BITBOARD ROWS
 
-const U64 ROW_1 = 0xFFULL << (0*8);
-const U64 ROW_2 = 0xFFULL << (1*8);
-const U64 ROW_3 = 0xFFULL << (2*8);
-const U64 ROW_4 = 0xFFULL << (3*8);
-const U64 ROW_5 = 0xFFULL << (4*8);
-const U64 ROW_6 = 0xFFULL << (5*8);
-const U64 ROW_7 = 0xFFULL << (6*8);
-const U64 ROW_8 = 0xFFULL << (7*8);
+const U64 ROW_1 = 0xFFULL << (0 * 8);
+const U64 ROW_2 = 0xFFULL << (1 * 8);
+const U64 ROW_3 = 0xFFULL << (2 * 8);
+const U64 ROW_4 = 0xFFULL << (3 * 8);
+const U64 ROW_5 = 0xFFULL << (4 * 8);
+const U64 ROW_6 = 0xFFULL << (5 * 8);
+const U64 ROW_7 = 0xFFULL << (6 * 8);
+const U64 ROW_8 = 0xFFULL << (7 * 8);
 
 const U64 BOARD_LIMITS = FILE_H | ROW_8;
 

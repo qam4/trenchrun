@@ -12,7 +12,8 @@
 #include "MoveList.h"
 #include "Parser.h"
 
-class Tests {
+class Tests
+{
 
 public:
     static void run();
@@ -39,7 +40,7 @@ private:
 
     static void move_generator_can_generate_tiefighter_moves();
     static void move_generator_can_generate_xwing_moves();
-    #if 0
+#if 0
     static void move_generator_can_generate_pawn_pushes();
     static void move_generator_can_generate_pawn_double_pushes();
     static void move_generator_can_generate_pawn_attacks();
@@ -49,7 +50,7 @@ private:
 
     static void move_generator_can_generate_knight_moves();
     static void move_generator_can_generate_king_moves();
-    #endif
+#endif
 };
 
 #endif /* TESTS_H */

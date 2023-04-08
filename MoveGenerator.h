@@ -12,14 +12,15 @@
 #include "Board.h"
 #include "Output.h"
 
-class MoveGenerator {
+class MoveGenerator
+{
 
 public:
     static void add_tiefighter_moves(class MoveList &list, const class Board &board, const int side);
     static void add_xwing_moves(class MoveList &list, const class Board &board, const int side);
     static void add_all_moves(class MoveList &list, const class Board &board, const int side);
 
-    #if 0
+#if 0
     static void add_pawn_pushes(class MoveList &list, const class Board &board, const int side);
     static void add_pawn_double_pushes(class MoveList &list, const class Board &board, const int side);
     static void add_pawn_attacks(class MoveList &list, const class Board &board, const int side);
@@ -27,7 +28,7 @@ public:
     static void add_knight_moves(class MoveList &list, const class Board &board, const int side);
     static void add_king_moves(class MoveList &list, const class Board &board, const int side);
     static void generate_move_lookup_tables();
-    #endif
+#endif
 
 private:
     // diff is positive number denoting fixed distance between from and to squares such that:
@@ -37,7 +38,7 @@ private:
     static void add_moves(U8 from, U64 targets, class MoveList &list, const class Board &board, const U8 flags);
     static void add_moves_check(U8 from, U64 targets, class MoveList &list, const class Board &board, const U8 flags, const U8 side);
     static void add_moves_with_diff(int diff, U64 targets, class MoveList &list, const class Board &board, const U8 flags);
-    //static void add_promotions_with_diff(int diff, U64 targets, class MoveList &list, const class Board &board, const U8 flags);
+    // static void add_promotions_with_diff(int diff, U64 targets, class MoveList &list, const class Board &board, const U8 flags);
     static U64 byteswap(U64 x);
     static U64 mirrorHorizontal(U64 x);
     static U64 rankMask(int sq);

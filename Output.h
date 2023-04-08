@@ -12,7 +12,8 @@
 #include "Board.h"
 #include "Move.h"
 
-class Output {
+class Output
+{
 
 public:
     static string board(class Board board);

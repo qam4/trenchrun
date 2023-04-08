@@ -15,33 +15,36 @@ using namespace std;
 /*
  *
  */
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
 
-    //static_assert(1ULL << 2 == 0ULL);
-    //cout << ((U32)(-5)) % 64 << endl;
-    //cout << Output::bitboard(1ULL << 33) << endl;
-    //MoveGenerator::generate_move_lookup_tables();
+    // static_assert(1ULL << 2 == 0ULL);
+    // cout << ((U32)(-5)) % 64 << endl;
+    // cout << Output::bitboard(1ULL << 33) << endl;
+    // MoveGenerator::generate_move_lookup_tables();
 
     char type;
     do
     {
         cout << "Do you want to play first? [y/n]" << endl;
         cin >> type;
-    }
-    while( !cin.fail() && type!='y' && type!='n' );
+    } while (!cin.fail() && type != 'y' && type != 'n');
 
-    if(type=='y') {
+    if (type == 'y')
+    {
         // human plays first
         string fen = "++++++++/1TT1TT1+/2~*~2+/XX3XX+/7+/xx3xx+/2+@+2+/1tt1tt1+";
         Board board = Parser::parse_fen(fen);
         cout << Output::board(board);
 
-        do {
+        do
+        {
             // Human's turn
-            if(board.is_game_over()) break;
+            if (board.is_game_over())
+                break;
             MoveList list;
             MoveGenerator::add_all_moves(list, board, board.side_to_move());
-            cout <<dec<< list.length() << " available moves:" << endl;
+            cout << dec << list.length() << " available moves:" << endl;
             cout << Output::movelist(list, board, false, true);
 
             assert(list.contains_valid_moves(board));
@@ -55,17 +58,18 @@ int main(int argc, char** argv) {
                 int number;
                 std::cin >> number;
 
-                move = list[number]; //Parser::move(input, board);
+                move = list[number]; // Parser::move(input, board);
             } while (!is_valid_move(move, board));
             board.do_move(move);
             cout << Output::board(board);
 
             // Computer's turn
-            if(board.is_game_over()) break;
-            clock_t tic= clock();
+            if (board.is_game_over())
+                break;
+            clock_t tic = clock();
             cout << "Thinking..." << endl;
-            move = board.first_minimax(MINIMAX_DEPTH, false);    // Computer is BLACK, trying to minimize
-            clock_t toc= clock();
+            move = board.first_minimax(MINIMAX_DEPTH, false); // Computer is BLACK, trying to minimize
+            clock_t toc = clock();
             double elapsed_secs = double(toc - tic) / CLOCKS_PER_SEC;
             cout << "time: " << elapsed_secs << "s" << endl;
             cout << "searched moves: " << board.get_searched_moves() << endl;
@@ -74,9 +78,12 @@ int main(int argc, char** argv) {
             board.do_move(move);
             cout << Output::board(board);
         } while (1);
-        if(board.side_to_move() == WHITE) {
+        if (board.side_to_move() == WHITE)
+        {
             cout << "Black player won" << endl;
-        } else {
+        }
+        else
+        {
             cout << "White player won" << endl;
         }
     }

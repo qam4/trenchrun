@@ -9,7 +9,8 @@
 #include "Common.h"
 #include "Move.h"
 
-class Board {
+class Board
+{
     friend class MoveGenerator;
     friend class Tests;
 
@@ -17,7 +18,8 @@ private:
     U64 bitboards[14];
     U8 board_array[64];
 
-    struct IrreversibleData {
+    struct IrreversibleData
+    {
         U8 side_to_move;
         U8 last_move_sideways;
     } irrev;
@@ -36,7 +38,6 @@ public:
     int is_game_over();
     int minimax(int depth, bool maximizing_player);
     Move_t first_minimax(int depth, bool maximizing_player);
-
 
     U8 operator[](const int square) const; // return piece on that square
     U64 bitboard(const int type) const;

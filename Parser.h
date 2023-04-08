@@ -9,7 +9,8 @@
 #include "Common.h"
 #include "Board.h"
 
-class Parser {
+class Parser
+{
 public:
     static class Board parse_fen(string fen);
     static U8 parse_piece(char piece);
@@ -19,7 +20,6 @@ public:
     static U32 move(string str, Board &board);
 
 private:
-
 };
 
 #endif /* PARSER_H */

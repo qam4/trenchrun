@@ -20,7 +20,6 @@ int main(int argc, char** argv) {
     //cout << ((U32)(-5)) % 64 << endl;
     //cout << Output::bitboard(1ULL << 33) << endl;
     //MoveGenerator::generate_move_lookup_tables();
-    Tests::run();
 
     char type;
     do
@@ -42,7 +41,7 @@ int main(int argc, char** argv) {
             MoveList list;
             MoveGenerator::add_all_moves(list, board, board.side_to_move());
             cout <<dec<< list.length() << " available moves:" << endl;
-            cout << Output::movelist(list, board);
+            cout << Output::movelist(list, board, false, true);
 
             assert(list.contains_valid_moves(board));
             assert(!list.contains_duplicates());
@@ -52,9 +51,10 @@ int main(int argc, char** argv) {
             do
             {
                 cout<<"your move: ";
-                cin >> input;
+                int number;
+                std::cin >> number;
 
-                move = Parser::move(input, board);
+                move = list[number]; //Parser::move(input, board);
             } while (!is_valid_move(move, board));
             board.do_move(move);
             cout<<Output::board(board);

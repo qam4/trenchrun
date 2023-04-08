@@ -267,7 +267,7 @@ void MoveGenerator::add_xwing_moves(class MoveList &list, const class Board &boa
         // Add diagonal and antidiagonal attacks, can only move backwards if capture
         targets = diagAttacks(occupied, from) + antiDiagAttacks(occupied, from);
         targets &= ~(friendly);
-        add_moves_check(from, targets, list, board, NO_FLAGS|board.last_move_sideways(), side);
+        add_moves_check(from, targets, list, board, NO_FLAGS, side);
 
         xwings &= xwings - 1;
     }

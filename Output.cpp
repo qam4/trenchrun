@@ -78,14 +78,30 @@ string Output::move_fancy(Move_t move, const class Board &board){
     return ss.str();
 }
 
-string Output::movelist(const class MoveList &list, const class Board &board){
+string Output::movelist(const class MoveList &list, const class Board &board, bool fancy = false, bool choice = false){
     stringstream ss;
     if(list.length() == 0){
-        ss << "NO MOVES";
+        ss << "NO MOVES" << endl;
         return ss.str();
     }
     for(int i = 0; i < list.length(); i++){
-        ss << Output::move_fancy(list[i], board) << ", ";
+        if (i > 0)
+        {
+            ss << ", ";
+        }
+        if (fancy)
+        {
+            ss << Output::move_fancy(list[i], board);
+        }
+        else
+        {
+            ss << Output::move(list[i], board);
+        }
+        if (choice)
+        {
+            ss << " [" << i << "]";
+        }
+
         if (i % 8 == 7 || i == list.length()-1){
             ss << endl;
         }

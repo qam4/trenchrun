@@ -211,7 +211,7 @@ Move_t Board::first_minimax(int depth, bool maximizing_player){
         bestvalue = -INFINITY;
 
         MoveGenerator::add_all_moves(list, *this, side_to_move());
-        //cout << Output::movelist(list, *this);
+        //cout << Output::movelist(list, *this, false, false);
         n = list.length();
 
         for(i=0; i<n; i++)
@@ -231,7 +231,7 @@ Move_t Board::first_minimax(int depth, bool maximizing_player){
         bestvalue = INFINITY;
 
         MoveGenerator::add_all_moves(list, *this, side_to_move());
-        //cout << Output::movelist(list, *this);
+        //cout << Output::movelist(list, *this, false, false);
         n = list.length();
 
         for(i=0; i<n; i++)

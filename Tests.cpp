@@ -191,8 +191,8 @@ void Tests::move_generator_can_generate_tiefighter_moves(){
     MoveList list;
     // check normal moves
     // check can only move backwards if move is a capture
-    MoveGenerator::add_tiefighter_moves(list, board, WHITE);
-    //cout << Output::movelist(list, board);
+    MoveGenerator::add_tiefighter_moves(list, board, board.side_to_move());
+    //cout << Output::movelist(list, board, true, false);
     assert(list.length() == 11);
     assert(list.contains_valid_moves(board));
     assert(!list.contains_duplicates());
@@ -208,14 +208,16 @@ void Tests::move_generator_can_generate_tiefighter_moves(){
     assert(list.contains(build_move(D2, D6)));
     assert(list.contains(build_move(D2, D7)));
     list.reset();
+    board.reset();
 
     // check black player, captures, move forward
     board.add_piece(BLACK_TIEFIGHTER, D5);
+    board.add_piece(WHITE_TIEFIGHTER, D2);
     board.add_piece(WHITE_DEATHSTAR, G5);    // cannot be taken forward
     board.add_piece(WHITE_XWING, D7);
     board.set_side_to_move(BLACK);
-    MoveGenerator::add_tiefighter_moves(list, board, BLACK);
-    //cout << Output::movelist(list, board);
+    MoveGenerator::add_tiefighter_moves(list, board, board.side_to_move());
+    //cout << Output::movelist(list, board, true, false);
     assert(list.length() == 9);
     assert(list.contains_valid_moves(board));
     assert(!list.contains_duplicates());
@@ -229,6 +231,59 @@ void Tests::move_generator_can_generate_tiefighter_moves(){
     assert(list.contains(build_capture(D5, D2, WHITE_TIEFIGHTER)));
     assert(list.contains(build_capture(D5, D7, WHITE_XWING)));
     list.reset();
+
+    // check last_move_sideway
+    board.reset();
+    board.add_piece(BLACK_TIEFIGHTER, D5);
+    board.add_piece(WHITE_TIEFIGHTER, D2);
+
+    board.do_move(build_move_sideways(D2, B2));
+    board.do_move(build_move_sideways(D5, E5));
+    MoveGenerator::add_tiefighter_moves(list, board, board.side_to_move());
+    //cout << Output::movelist(list, board, true, false);
+    //cout << Output::board_with_movelist(list, board);
+    assert(list.length() == 5);
+    assert(list.contains_valid_moves(board));
+    assert(!list.contains_duplicates());
+    assert(list.contains(build_move(B2, B3)));
+    assert(list.contains(build_move(B2, B4)));
+    assert(list.contains(build_move(B2, B5)));
+    assert(list.contains(build_move(B2, B6)));
+    assert(list.contains(build_move(B2, B7)));
+    list.reset();
+
+    board.do_move(build_move(B2, B3));
+    MoveGenerator::add_tiefighter_moves(list, board, board.side_to_move());
+    cout << Output::movelist(list, board, true, false);
+    cout << Output::board_with_movelist(list, board);
+    assert(list.length() == 4);
+    assert(list.contains_valid_moves(board));
+    assert(!list.contains_duplicates());
+    assert(list.contains(build_move(E5, E4)));
+    assert(list.contains(build_move(E5, E3)));
+    assert(list.contains(build_move(E5, E2)));
+    assert(list.contains(build_move(E5, E1)));
+    list.reset();
+
+    board.do_move(build_move(E5, E4));
+    MoveGenerator::add_tiefighter_moves(list, board, board.side_to_move());
+    cout << Output::movelist(list, board, true, false);
+    cout << Output::board_with_movelist(list, board);
+    assert(list.length() == 10);
+    assert(list.contains_valid_moves(board));
+    assert(!list.contains_duplicates());
+    assert(list.contains(build_move_sideways(B3, A3)));
+    assert(list.contains(build_move_sideways(B3, C3)));
+    assert(list.contains(build_move_sideways(B3, D3)));
+    assert(list.contains(build_move_sideways(B3, E3)));
+    assert(list.contains(build_move_sideways(B3, F3)));
+    assert(list.contains(build_move(B3, B4)));
+    assert(list.contains(build_move(B3, B5)));
+    assert(list.contains(build_move(B3, B6)));
+    assert(list.contains(build_move(B3, B7)));
+    list.reset();
+
+
 }
 
 
@@ -240,7 +295,7 @@ void Tests::move_generator_can_generate_xwing_moves(){
     // check normal moves
     // check can only move backwards if move is a capture
     MoveGenerator::add_xwing_moves(list, board, WHITE);
-    //cout << Output::movelist(list, board);
+    //cout << Output::movelist(list, board, true, false);
     assert(list.length() == 6);
     assert(list.contains_valid_moves(board));
     assert(!list.contains_duplicates());
@@ -261,7 +316,7 @@ void Tests::move_generator_can_generate_xwing_moves(){
     board.add_piece(WHITE_XWING, B3);
     board.set_side_to_move(BLACK);
     MoveGenerator::add_xwing_moves(list, board, BLACK);
-    //cout << Output::movelist(list, board);
+    //cout << Output::movelist(list, board, true, false);
     //cout << Output::board_with_movelist(list, board);
     assert(list.length() == 6);
     assert(list.contains_valid_moves(board));

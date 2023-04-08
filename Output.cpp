@@ -96,6 +96,7 @@ string Output::movelist(const class MoveList &list, const class Board &board, bo
         else
         {
             ss << Output::move(list[i], board);
+            // ss << hex << list[i] << endl;
         }
         if (choice)
         {

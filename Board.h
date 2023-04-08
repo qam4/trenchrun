@@ -22,6 +22,8 @@ private:
         U8 last_move_sideways;
     } irrev;
 
+    int searched_moves;
+
 public:
     Board();
     bool is_blank();
@@ -38,10 +40,11 @@ public:
 
     U8 operator[](const int square) const; // return piece on that square
     U64 bitboard(const int type) const;
-    U8 side_to_move()    const { return irrev.side_to_move; };
+    U8 side_to_move() const { return irrev.side_to_move; };
     U8 last_move_sideways() const { return irrev.last_move_sideways; };
     void set_side_to_move(U8 side) { irrev.side_to_move = side; };
     void set_last_move_sideways(U8 val) { irrev.last_move_sideways = val; };
+    int get_searched_moves() const { return searched_moves; };
 };
 
 #endif /* BOARD_H */

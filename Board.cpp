@@ -66,7 +66,9 @@ U64 Board::bitboard(const int type) const{
 
 void Board::do_move(Move_t move){
     U8 piece = board_array[move_from(move)];
-    //cout<<"do_move:"<<Output::move_fancy(move, *this)<<endl;
+    //cout << "do_move:" << Output::move_fancy(move, *this) << endl;
+    //cout << "do_move: move_flag=" << hex << move << endl;
+    //cout << "do_move: last_move_sideways=" <<(int)irrev.last_move_sideways << endl;
 
     if(is_capture(move)) {
         remove_piece(move_to(move));
@@ -79,8 +81,7 @@ void Board::do_move(Move_t move){
     irrev.last_move_sideways &= ~(1<<irrev.side_to_move);
 
     if((move_flags(move) & MOVED_SIDEWAYS) != 0) irrev.last_move_sideways |= 1<<irrev.side_to_move;
-    //cout << "do_move: move_flag=" <<hex<<move<< endl;
-    //cout << "do_move: last_move_sideways=" <<(int)irrev.last_move_sideways<< endl;
+    //cout << "do_move: last_move_sideways=" << (int)irrev.last_move_sideways << endl;
 
     // update side_to_move
     irrev.side_to_move ^= 1;
@@ -88,7 +89,9 @@ void Board::do_move(Move_t move){
 
 void Board::undo_move(Move_t move){
     U8 piece = board_array[move_to(move)];
-    //cout<<"undo_move:"<<Output::move_fancy(move, *this)<<endl;
+    //cout << "undo_move:" << Output::move_fancy(move, *this) << endl;
+    //cout << "undo_move: move_flag=" << hex << move << endl;
+    //cout << "undo_move: last_move_sideways=" <<(int)irrev.last_move_sideways << endl;
 
     // update side_to_move
     irrev.side_to_move ^= 1;
@@ -100,6 +103,7 @@ void Board::undo_move(Move_t move){
     }
     // update last_move_sideways
     irrev.last_move_sideways = move_flags(move) & LAST_MOVE_SIDEWAYS_MASK;
+    //cout << "undo_move: last_move_sideways=" <<(int)irrev.last_move_sideways << endl;
 }
 
 int Board::evaluate(){
@@ -166,6 +170,7 @@ int Board::minimax(int depth, bool maximizing_player){
 
         for(i=0; i<n; i++)
         {
+            searched_moves++;
             move=list[i];
             do_move(move);
             value = minimax(depth-1, false);
@@ -181,6 +186,7 @@ int Board::minimax(int depth, bool maximizing_player){
 
         for(i=0; i<n; i++)
         {
+            searched_moves++;
             move = list[i];
             do_move(move);
             value = minimax(depth-1, true);
@@ -193,8 +199,11 @@ int Board::minimax(int depth, bool maximizing_player){
 
 Move_t Board::first_minimax(int depth, bool maximizing_player){
     MoveList list;
-    int i,n,bestvalue,value;
+    int i, n, bestvalue, value;
     Move_t move, bestmove = 0;
+
+    // Reset searched_moves
+    searched_moves = 0;
 
     // Game over
     if(is_game_over())
@@ -216,12 +225,13 @@ Move_t Board::first_minimax(int depth, bool maximizing_player){
 
         for(i=0; i<n; i++)
         {
+            searched_moves++;
             move = list[i];
             do_move(move);
             value = minimax(depth-1, false);
             undo_move(move);
             cout << Output::move_fancy(move, *this) << " (" << dec<< value << "), ";
-            if((i%4==3)||(i==n-1)) cout<<endl;
+            if((i%4==3)||(i==n-1)) cout << endl;
             if(value>bestvalue) {
                 bestvalue = value;
                 bestmove = move;
@@ -236,12 +246,13 @@ Move_t Board::first_minimax(int depth, bool maximizing_player){
 
         for(i=0; i<n; i++)
         {
+            searched_moves++;
             move = list[i];
             do_move(move);
             value = minimax(depth-1, true);
             undo_move(move);
             cout << Output::move_fancy(move, *this) << " (" << dec<< value << "), ";
-            if((i%4==3)||(i==n-1)) cout<<endl;
+            if((i%4==3)||(i==n-1)) cout << endl;
             if(value<bestvalue) {
                 bestvalue = value;
                 bestmove = move;

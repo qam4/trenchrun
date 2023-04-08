@@ -12,11 +12,12 @@ typedef U32 Move_t;
 
 // FLAGS
 static const U8 NO_FLAGS = 0;
-static const U8 MOVED_SIDEWAYS = 1;
+static const U8 LAST_MOVE_SIDEWAYS_MASK = 3;
+static const U8 MOVED_SIDEWAYS = 4;
 
 Move_t inline build_move(U8 from, U8 to) { return from | (to << 8); }
 Move_t inline build_capture(U8 from, U8 to, U8 capture){ return from | (to << 8) | (capture << 24); }
-Move_t inline build_move_sideways(U8 from, U8 to){ return from | (to << 8) | (MOVED_SIDEWAYS<<16); }
+Move_t inline build_move_flags(U8 from, U8 to, U8 flags){ return from | (to << 8) | (flags<<16); }
 
 bool inline is_capture(Move_t move){ return move & (0xFF << 24); }
 

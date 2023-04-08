@@ -10,6 +10,7 @@
 #include "Board.h"
 
 using namespace std;
+#define MINIMAX_DEPTH 6
 
 /*
  *
@@ -33,7 +34,7 @@ int main(int argc, char** argv) {
         // human plays first
         string fen = "++++++++/1TT1TT1+/2~*~2+/XX3XX+/7+/xx3xx+/2+@+2+/1tt1tt1+";
         Board board = Parser::parse_fen(fen);
-        cout<<Output::board(board);
+        cout << Output::board(board);
 
         do {
             // Human's turn
@@ -50,27 +51,28 @@ int main(int argc, char** argv) {
             Move_t move;
             do
             {
-                cout<<"your move: ";
+                cout << "your move: ";
                 int number;
                 std::cin >> number;
 
                 move = list[number]; //Parser::move(input, board);
             } while (!is_valid_move(move, board));
             board.do_move(move);
-            cout<<Output::board(board);
+            cout << Output::board(board);
 
             // Computer's turn
             if(board.is_game_over()) break;
             clock_t tic= clock();
-            cout << "Thinking..."<<endl;
-            move = board.first_minimax(5, false);    // Computer is BLACK, trying to minimize
+            cout << "Thinking..." << endl;
+            move = board.first_minimax(MINIMAX_DEPTH, false);    // Computer is BLACK, trying to minimize
             clock_t toc= clock();
             double elapsed_secs = double(toc - tic) / CLOCKS_PER_SEC;
-            cout << "time: " << elapsed_secs << "s"<<endl;
+            cout << "time: " << elapsed_secs << "s" << endl;
+            cout << "searched moves: " << board.get_searched_moves() << endl;
 
-            cout<<"Computer move: " << Output::move_fancy(move, board)<<endl;
+            cout << "Computer move: " << Output::move_fancy(move, board) << endl;
             board.do_move(move);
-            cout<<Output::board(board);
+            cout << Output::board(board);
         } while (1);
         if(board.side_to_move() == WHITE) {
             cout << "Black player won" << endl;

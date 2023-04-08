@@ -117,6 +117,6 @@ U32 Parser::move(string str, Board &board){
         flags |= MOVED_SIDEWAYS;
     }
     move |= flags << 16;
-    //cout <<"move="<< hex<<move << endl;
+    //cout << "move=" << hex<<move << endl;
     return move;
 }

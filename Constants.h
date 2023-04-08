@@ -50,7 +50,6 @@ const string PIECE_CHARS = "-E+~xXtT@*";
 //
 const U8 WHITE_MOVED_SIDEWAYS = 1;
 const U8 BLACK_MOVED_SIDEWAYS = 2;
-const U8 LAST_MOVE_SIDEWAYS_MASK = 3;
 
 // SQUARES
 

@@ -64,7 +64,7 @@ void MoveGenerator::add_moves_check(U8 from, U64 targets, class MoveList& list, 
             // this is a capture, we need to check if the capture is backwards for DEATHSTAR
             if(!(((capture&(~1))==DEATHSTAR) && ( ((side==WHITE) && (to > from)) || ((side==BLACK) && (to < from)))))
             {
-                //cout<<"capture:"<<capture<<endl;
+                //cout << "capture:" <<capture<< endl;
                 move = from | (to << 8) | (flags<<16) | (capture << 24);
                 list.push(move);
             }
@@ -156,7 +156,7 @@ U64 MoveGenerator::diagAttacks(U64 occ, int sq) {
     U64 forward, reverse, slider, lineMask;
 
     lineMask = diagMaskEx(sq); // excludes square of slider
-    slider   = C64(1)<<sq; //singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
+    slider   = C64(1) <<sq; //singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
 
     forward  = occ & lineMask;    // also performs the first subtraction by clearing the s in o
     reverse  = byteswap(forward); // o'-s'
@@ -174,7 +174,7 @@ U64 MoveGenerator::antiDiagAttacks(U64 occ, int sq) {
     U64 forward, reverse, slider, lineMask;
 
     lineMask = antiDiagMaskEx(sq); // excludes square of slider
-    slider   = C64(1)<<sq; //singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
+    slider   = C64(1) <<sq; //singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
 
     forward  = occ & lineMask;    // also performs the first subtraction by clearing the s in o
     reverse  = byteswap(forward); // o'-s'
@@ -192,7 +192,7 @@ U64 MoveGenerator::fileAttacks(U64 occ, int sq) {
     U64 forward, reverse, slider, lineMask;
 
     lineMask = fileMaskEx(sq); // excludes square of slider
-    slider   = C64(1)<<sq; //singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
+    slider   = C64(1) <<sq; //singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
 
     forward  = occ & lineMask;    // also performs the first subtraction by clearing the s in o
     reverse  = byteswap(forward); // o'-s'
@@ -210,7 +210,7 @@ U64 MoveGenerator::rankAttacks(U64 occ, int sq) {
     U64 forward, reverse, slider, lineMask;
 
     lineMask = rankMaskEx(sq); // excludes square of slider
-    slider   = C64(1)<<sq; //singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
+    slider   = C64(1) <<sq; //singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
 
     forward  = occ & lineMask;    // also performs the first subtraction by clearing the s in o
     reverse  = mirrorHorizontal(forward); // o'-s'
@@ -227,11 +227,11 @@ void MoveGenerator::add_tiefighter_moves(class MoveList &list, const class Board
     U64 friendly = board.bitboards[side] | board.bitboards[BLACK_WALL] | board.bitboards[WHITE_WALL] | BOARD_LIMITS; // own pieces and walls
 
     #if 0
-    cout << "tiefighters=0x" << hex << tiefighters<<endl;
+    cout << "tiefighters=0x" << hex << tiefighters<< endl;
     cout << Output::bitboard(tiefighters);
-    cout << "occupied=0x" << hex << occupied<<endl;
+    cout << "occupied=0x" << hex << occupied<< endl;
     cout << Output::bitboard(occupied);
-    cout << "friendly=0x" << hex << occupied<<endl;
+    cout << "friendly=0x" << hex << occupied<< endl;
     cout << Output::bitboard(friendly);
     #endif
 
@@ -243,16 +243,16 @@ void MoveGenerator::add_tiefighter_moves(class MoveList &list, const class Board
         if((board.last_move_sideways() & (1<<side)) == 0) {
             targets = rankAttacks(occupied, from);
             targets &= ~(friendly | board.bitboards[DEATHSTAR|!side]);
-            add_moves(from, targets, list, board, MOVED_SIDEWAYS);
+            add_moves(from, targets, list, board, MOVED_SIDEWAYS|board.last_move_sideways());
         }
         // Add file attacks, can only move backwards if capture
         targets = fileAttacks(occupied, from);
         targets &= ~(friendly);
-        add_moves_check(from, targets, list, board, NO_FLAGS, side);
+        add_moves_check(from, targets, list, board, NO_FLAGS|board.last_move_sideways(), side);
 
         tiefighters &= tiefighters - 1;
     }
-    //cout<<"found "<<dec<<list.length()<<" moves"<<endl;
+    //cout << "found " <<dec<<list.length() << " moves" << endl;
 }
 
 void MoveGenerator::add_xwing_moves(class MoveList &list, const class Board &board, const int side){
@@ -267,7 +267,7 @@ void MoveGenerator::add_xwing_moves(class MoveList &list, const class Board &boa
         // Add diagonal and antidiagonal attacks, can only move backwards if capture
         targets = diagAttacks(occupied, from) + antiDiagAttacks(occupied, from);
         targets &= ~(friendly);
-        add_moves_check(from, targets, list, board, NO_FLAGS, side);
+        add_moves_check(from, targets, list, board, NO_FLAGS|board.last_move_sideways(), side);
 
         xwings &= xwings - 1;
     }

@@ -14,7 +14,19 @@ OBJDIR   = ./obj
 
 #
 TARGET   = $(OBJDIR)/testsrunner
-SOURCES  := ./TestsRunner.cpp ./Tests.cpp ./Board.cpp ./Common.cpp ./Move.cpp ./MoveGenerator.cpp ./MoveList.cpp ./Output.cpp ./Parser.cpp
+SOURCES  := \
+	./TestsRunner.cpp \
+	./Tests.cpp \
+	./Board.cpp \
+	./Common.cpp \
+	./Move.cpp \
+	./MoveGenerator.cpp \
+	./MoveList.cpp \
+	./Output.cpp \
+	./Parser.cpp \
+	./MiniMax.cpp \
+	./NegaMax.cpp
+
 OBJECTS  := $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 DEPS     := $(OBJECTS:%.o=%.d)
 

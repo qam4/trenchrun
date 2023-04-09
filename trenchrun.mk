@@ -14,7 +14,18 @@ OBJDIR   = ./obj
 
 #
 TARGET   = $(OBJDIR)/trenchrun
-SOURCES  := ./Trenchrun.cpp ./Board.cpp ./Common.cpp ./Move.cpp ./MoveGenerator.cpp ./MoveList.cpp ./Output.cpp ./Parser.cpp
+SOURCES  := \
+	./Trenchrun.cpp \
+	./Board.cpp \
+	./Common.cpp \
+	./Move.cpp \
+	./MoveGenerator.cpp \
+	./MoveList.cpp \
+	./Output.cpp \
+	./Parser.cpp \
+	./MiniMax.cpp \
+	./NegaMax.cpp
+
 OBJECTS  := $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 DEPS     := $(OBJECTS:%.o=%.d)
 

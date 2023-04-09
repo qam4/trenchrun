@@ -68,7 +68,8 @@ int main(int argc, char **argv)
                 break;
             clock_t tic = clock();
             cout << "Thinking..." << endl;
-            move = board.first_minimax(MINIMAX_DEPTH, false); // Computer is BLACK, trying to minimize
+            //move = board.minimax_root(MINIMAX_DEPTH, false); // Computer is BLACK, trying to minimize
+            move = board.negamax_root(MINIMAX_DEPTH);
             clock_t toc = clock();
             double elapsed_secs = double(toc - tic) / CLOCKS_PER_SEC;
             cout << "time: " << elapsed_secs << "s" << endl;

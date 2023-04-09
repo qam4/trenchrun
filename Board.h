@@ -36,8 +36,11 @@ public:
     void undo_move(Move_t move);
     int evaluate();
     int is_game_over();
+    // Algos
     int minimax(int depth, bool maximizing_player);
-    Move_t first_minimax(int depth, bool maximizing_player);
+    Move_t minimax_root(int depth, bool maximizing_player);
+    int negamax(int depth);
+    Move_t negamax_root(int depth);
 
     U8 operator[](const int square) const; // return piece on that square
     U64 bitboard(const int type) const;

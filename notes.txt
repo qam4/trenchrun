@@ -3,18 +3,17 @@ NOTES
 Codebase Reference:
 https://github.com/peterellisjones/Checkmate
 
-
+Trenchrun:
 https://athena.ecs.csus.edu/~gordonvs/180/Tournaments/tres.html
 https://athena.ecs.csus.edu/~gordonvs/180/180ref.html
 
 
 https://peterellisjones.com/posts/generating-legal-chess-moves-efficiently/
-
-
-
 https://code.google.com/archive/p/javalin-chess/wikis/README.wiki
-
 https://chess.stackexchange.com/questions/37309/move-generation-for-sliding-pieces-and-hyperbola-quintessence
 https://www.chessprogramming.org/Hyperbola_Quintessence
+
+https://www.techfak.uni-bielefeld.de/~skopp/Lehre/STdKI_SS10/VL3-GamePlaying.pdf
+
 
 

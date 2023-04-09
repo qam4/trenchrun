@@ -99,6 +99,7 @@ void MoveGenerator::add_moves_with_diff(int diff, U64 targets, class MoveList &l
         targets &= targets - 1;
     }
 }
+
 /**
  * Byte swap === flip vertical
  */
@@ -113,6 +114,8 @@ U64 MoveGenerator::byteswap(U64 x)
  * File a is mapped to file h and vice versa.
  * @param x any bitboard
  * @return bitboard x mirrored horizontally
+ *
+ * https://www.chessprogramming.org/Flipping_Mirroring_and_Rotating#MirrorHorizontally
  */
 U64 MoveGenerator::mirrorHorizontal(U64 x)
 {
@@ -124,6 +127,11 @@ U64 MoveGenerator::mirrorHorizontal(U64 x)
     x = ((x >> 4) & k4) | ((x & k4) << 4);
     return x;
 }
+
+// Sliding piece attacks
+// https://www.chessprogramming.org/Sliding_Piece_Attacks
+
+
 
 // Ray Masks (should be turned into lookup tables)
 U64 MoveGenerator::rankMask(int sq) { return C64(0xff) << (sq & 56); }
@@ -160,9 +168,10 @@ U64 MoveGenerator::tiefighterMaskEx(int sq) {return rankMask(sq)     ^ fileMask(
 U64 MoveGenerator::xwingMaskEx     (int sq) {return diagonalMask(sq) ^ antiDiagMask(sq);}
 #endif
 
+// https://www.chessprogramming.org/Efficient_Generation_of_Sliding_Piece_Attacks
 U64 MoveGenerator::diagAttacks(U64 occ, int sq)
 {
-    // lineAttacks= (o-2s) ^ (o'-2s')'
+    // lineAttacks = (o-2s) ^ (o'-2s')'
     //     with m=mask
     // lineAttacks=(((o&m)-2s) ^ ((o&m)'-2s')')&m
     U64 forward, reverse, slider, lineMask;

@@ -10,11 +10,11 @@ int Board::alphabeta(int alpha, int beta, int depth)
     Move_t move;
 
     // Leaf node
-    if (depth == 0)
+    if (depth == 0 || is_game_over())
     {
-        // int who2move = (side_to_move() == WHITE) ? 1 : -1;
-        // return who2move * evaluate();
-        return quiesce(alpha, beta);
+        int who2move = (side_to_move() == WHITE) ? 1 : -1;
+        return who2move * evaluate();
+        // return quiesce(alpha, beta);
     }
 
     MoveGenerator::add_all_moves(list, *this, side_to_move());

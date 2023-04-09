@@ -11,7 +11,7 @@ int Board::minimax(int depth, bool maximizing_player)
     Move_t move;
 
     // Leaf node
-    if (depth == 0)
+    if (depth == 0 || is_game_over())
     {
         return evaluate();
     }

@@ -11,7 +11,7 @@ int Board::negamax(int depth)
     Move_t move;
 
     // Leaf node
-    if (depth == 0)
+    if (depth == 0 || is_game_over())
     {
         int who2move = (side_to_move() == WHITE) ? 1 : -1;
         return who2move * evaluate();

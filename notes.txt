@@ -15,5 +15,7 @@ https://www.chessprogramming.org/Hyperbola_Quintessence
 
 https://www.techfak.uni-bielefeld.de/~skopp/Lehre/STdKI_SS10/VL3-GamePlaying.pdf
 
+Hashing and Move Ordering
+https://www.ics.uci.edu/~eppstein/180a/970424.html
 
-
+https://www.dailychess.com/rival/programming/index.php

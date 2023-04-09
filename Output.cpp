@@ -25,6 +25,7 @@ string Output::board(const class Board board)
     ss << endl;
     ss << "   A B C D E F G " << endl;
     ss << ((board.side_to_move() == WHITE) ? "WHITE" : "BLACK") << " turn" << endl;
+    ss << "Turn: " << board.get_turns() << endl;
     // ss << "last_move_sideways=" << (int)board.last_move_sideways() << endl;
     return ss.str();
 }

@@ -55,6 +55,7 @@ void Board::reset()
     }
     irrev.last_move_sideways = 0;
     irrev.side_to_move = WHITE;
+    turns = 1;
 }
 
 U8 Board::operator[](const int square) const
@@ -97,6 +98,8 @@ void Board::do_move(Move_t move)
 
     // update side_to_move
     irrev.side_to_move ^= 1;
+
+    turns++;
 }
 
 void Board::undo_move(Move_t move)
@@ -118,6 +121,8 @@ void Board::undo_move(Move_t move)
     // update last_move_sideways
     irrev.last_move_sideways = move_flags(move) & LAST_MOVE_SIDEWAYS_MASK;
     // cout << "undo_move: last_move_sideways=" <<(int)irrev.last_move_sideways << endl;
+
+    turns--;
 }
 
 int Board::evaluate()

@@ -25,6 +25,7 @@ private:
     } irrev;
 
     int searched_moves;
+    int turns;
 
 public:
     Board();
@@ -41,14 +42,17 @@ public:
     Move_t minimax_root(int depth, bool maximizing_player);
     int negamax(int depth);
     Move_t negamax_root(int depth);
+    int alphabeta(int alpha, int beta, int depth);
+    Move_t alphabeta_root(int depth);
 
     U8 operator[](const int square) const; // return piece on that square
     U64 bitboard(const int type) const;
     U8 side_to_move() const { return irrev.side_to_move; };
     U8 last_move_sideways() const { return irrev.last_move_sideways; };
+    int get_searched_moves() const { return searched_moves; };
+    int get_turns() const { return turns; };
     void set_side_to_move(U8 side) { irrev.side_to_move = side; };
     void set_last_move_sideways(U8 val) { irrev.last_move_sideways = val; };
-    int get_searched_moves() const { return searched_moves; };
 };
 
 #endif /* BOARD_H */

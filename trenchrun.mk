@@ -25,7 +25,8 @@ SOURCES  := \
 	./Parser.cpp \
 	./MiniMax.cpp \
 	./NegaMax.cpp \
-	./AlphaBeta.cpp
+	./AlphaBeta.cpp \
+	./Quiesce.cpp
 
 OBJECTS  := $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 DEPS     := $(OBJECTS:%.o=%.d)

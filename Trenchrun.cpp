@@ -10,7 +10,7 @@
 #include "Board.h"
 
 using namespace std;
-#define SEARCH_DEPTH 8
+#define SEARCH_DEPTH 7
 
 /*
  *

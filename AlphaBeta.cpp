@@ -12,8 +12,9 @@ int Board::alphabeta(int alpha, int beta, int depth)
     // Leaf node
     if (depth == 0)
     {
-        int who2move = (side_to_move() == WHITE) ? 1 : -1;
-        return who2move * evaluate();
+        // int who2move = (side_to_move() == WHITE) ? 1 : -1;
+        // return who2move * evaluate();
+        return quiesce(alpha, beta);
     }
 
     MoveGenerator::add_all_moves(list, *this, side_to_move());

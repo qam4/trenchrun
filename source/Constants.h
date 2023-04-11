@@ -22,7 +22,7 @@
    A B C D E F G
 */
 
-const int INFINITY = 1000;
+const int MAX_SCORE = 1000;
 
 // PIECES
 

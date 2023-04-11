@@ -18,7 +18,7 @@ int Board::minimax(int depth, bool maximizing_player)
 
     if (maximizing_player == true)
     {
-        bestvalue = -INFINITY;
+        bestvalue = -MAX_SCORE;
 
         MoveGenerator::add_all_moves(list, *this, side_to_move());
         n = list.length();
@@ -36,7 +36,7 @@ int Board::minimax(int depth, bool maximizing_player)
     }
     else
     {
-        bestvalue = INFINITY;
+        bestvalue = MAX_SCORE;
 
         MoveGenerator::add_all_moves(list, *this, side_to_move());
         n = list.length();
@@ -66,7 +66,7 @@ Move_t Board::minimax_root(int depth, bool maximizing_player)
 
     if (maximizing_player == true)
     {
-        bestvalue = -INFINITY;
+        bestvalue = -MAX_SCORE;
 
         MoveGenerator::add_all_moves(list, *this, side_to_move());
         // cout << Output::movelist(list, *this, false, false);
@@ -93,7 +93,7 @@ Move_t Board::minimax_root(int depth, bool maximizing_player)
     }
     else
     {
-        bestvalue = INFINITY;
+        bestvalue = MAX_SCORE;
 
         MoveGenerator::add_all_moves(list, *this, side_to_move());
         // cout << Output::movelist(list, *this, false, false);

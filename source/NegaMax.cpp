@@ -17,7 +17,7 @@ int Board::negamax(int depth)
         return who2move * evaluate();
     }
 
-    bestvalue = -INFINITY;
+    bestvalue = -MAX_SCORE;
 
     MoveGenerator::add_all_moves(list, *this, side_to_move());
     n = list.length();
@@ -44,7 +44,7 @@ Move_t Board::negamax_root(int depth)
     // Reset searched_moves
     searched_moves = 0;
 
-    bestvalue = -INFINITY;
+    bestvalue = -MAX_SCORE;
 
     MoveGenerator::add_all_moves(list, *this, side_to_move());
     // cout << Output::movelist(list, *this, false, false);

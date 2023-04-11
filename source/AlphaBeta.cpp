@@ -42,8 +42,8 @@ Move_t Board::alphabeta_root(int depth)
     MoveList list;
     int i, n, value;
     Move_t move, bestmove = 0;
-    int alpha = -INFINITY;
-    int beta = INFINITY;
+    int alpha = -MAX_SCORE;
+    int beta = MAX_SCORE;
 
     // Reset searched_moves
     searched_moves = 0;

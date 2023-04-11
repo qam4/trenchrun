@@ -48,6 +48,7 @@ const U8 BLACK_DEATHSTAR = 9;  // *
 const string PIECE_CHARS = "-E+~xXtT@*";
 
 //
+const U8 NO_MOVED_SIDEWAYS = 0;
 const U8 WHITE_MOVED_SIDEWAYS = 1;
 const U8 BLACK_MOVED_SIDEWAYS = 2;
 

@@ -20,15 +20,22 @@ using namespace std;
 #include "Board.h"
 #include "Move.h"
 
+// https://www.chessprogramming.org/BitScan
 /* __builtin_ffsll returns one plus the index of the least significant 1-bit of x, or if x is zero, returns zero */
-U32 inline bit_scan_forward(U64 bb) { return __builtin_ffsll(bb) - 1; }
+U8 inline bit_scan_forward(U64 bb)
+{
+#ifdef DEBUG
+    assert(bb > 0);
+#endif
+    return static_cast<U8>(__builtin_ffsll(static_cast<long long>(bb)) - 1);
+}
 U64 inline circular_left_shift(U64 target, int shift)
 {
 #ifdef DEBUG
-  assert(shift >= 0);
-  assert(shift <= 64);
+    assert(shift >= 0);
+    assert(shift <= 64);
 #endif
-  return (target << shift) | (target >> (64 - shift));
+    return (target << shift) | (target >> (64 - shift));
 }
 
 int pop_count(U64 x);

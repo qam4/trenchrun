@@ -60,12 +60,13 @@ string Output::square(U8 square)
     const string ROWS = "12345678";
     const string FILES = "ABCDEFGH";
     stringstream ss;
-    ss << FILES[square & 7] << ROWS[square >> 3];
+    ss << FILES[square & 7] << ROWS[static_cast<size_t>(square >> 3)];
     return ss.str();
 }
 
 string Output::move(Move_t move, const class Board &board)
 {
+    (void)board;
     stringstream ss;
 
     U8 from = move_from(move);
@@ -79,11 +80,11 @@ string Output::move_fancy(Move_t move, const class Board &board)
     stringstream ss;
 
     U8 from = move_from(move);
-    ss << Output::piece(board[from] & (~1));
+    ss << Output::piece(board[from] & static_cast<U8>(~1));
     ss << Output::square(from);
     if (is_capture(move))
     {
-        ss << 'x' << Output::piece(move_captured(move) & (~1));
+        ss << 'x' << Output::piece(move_captured(move) & static_cast<U8>(~1));
     }
     ss << Output::square(move_to(move));
     ss << (((move_flags(move) & MOVED_SIDEWAYS) != 0) ? "-" : "");

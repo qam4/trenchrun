@@ -19,6 +19,8 @@ using namespace std;
  */
 int main(int argc, char **argv)
 {
+    (void)argc;
+    (void)argv;
 
     // static_assert(1ULL << 2 == 0ULL);
     // cout << ((U32)(-5)) % 64 << endl;

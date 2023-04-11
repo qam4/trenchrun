@@ -16,9 +16,9 @@ class MoveGenerator
 {
 
 public:
-    static void add_tiefighter_moves(class MoveList &list, const class Board &board, const int side);
-    static void add_xwing_moves(class MoveList &list, const class Board &board, const int side);
-    static void add_all_moves(class MoveList &list, const class Board &board, const int side);
+    static void add_tiefighter_moves(class MoveList &list, const class Board &board, const U8 side);
+    static void add_xwing_moves(class MoveList &list, const class Board &board, const U8 side);
+    static void add_all_moves(class MoveList &list, const class Board &board, const U8 side);
 
 #if 0
     static void add_pawn_pushes(class MoveList &list, const class Board &board, const int side);

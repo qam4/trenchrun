@@ -31,12 +31,12 @@ bool is_valid_move(Move_t move, const class Board &board)
 
 string is_valid_move_err(Move_t move, const class Board &board)
 {
-    int side = board.side_to_move();
-    int from = move_from(move);
-    int to = move_to(move);
-    int mover = board[from];
-    int destination = board[to];
-    int captured = move_captured(move);
+    U8 side = board.side_to_move();
+    U8 from = move_from(move);
+    U8 to = move_to(move);
+    U8 mover = board[from];
+    U8 destination = board[to];
+    U8 captured = move_captured(move);
 //[fm]int promote_to = move_promote_to(move);
 //[not used]int flags = move_flags(move);
 #if 0
@@ -128,8 +128,8 @@ string is_valid_move_err(Move_t move, const class Board &board)
         }
     }
 #endif
-    U32 rows = abs((from & 56) - (to & 56)) >> 3;
-    U32 files = abs((from & 7) - (to & 7));
+    int rows = abs((from & 56) - (to & 56)) >> 3;
+    int files = abs((from & 7) - (to & 7));
 
     // if tie-fighter
     // check only move along files or rows

@@ -9,9 +9,9 @@ class Board Parser::parse_fen(string fen)
 {
     Board board = Board();
 
-    int len = fen.length();
+    size_t len = fen.length();
 
-    int pos = 0; // position in string
+    size_t pos = 0; // position in string
     //[not used]int square = A1;
 
     // 8 rows of pieces
@@ -54,11 +54,11 @@ class Board Parser::parse_fen(string fen)
             return board;
 
     // last move sideways
-    U8 last_move_sideways = 0;
+    U8 last_move_sideways = NO_MOVED_SIDEWAYS;
     while (fen[pos] != ' ')
     {
         // cout << "fen:msw=" << fen[pos] << endl;
-        last_move_sideways |= Parser::last_move_sideways(fen[pos]);
+        last_move_sideways = last_move_sideways | Parser::last_move_sideways(fen[pos]);
         board.set_last_move_sideways(last_move_sideways);
         if (pos++ >= len)
             return board;
@@ -82,7 +82,7 @@ class Board Parser::parse_fen(string fen)
 
 U8 Parser::parse_piece(char piece)
 {
-    for (int i = 2; i < 14; i++)
+    for (U8 i = 2; i < 14; i++)
     {
         if (PIECE_CHARS[i] == piece)
             return i;
@@ -103,7 +103,7 @@ U8 Parser::last_move_sideways(char c)
         return BLACK_MOVED_SIDEWAYS;
     if (c == 'w' || c == 'W')
         return WHITE_MOVED_SIDEWAYS;
-    return 0;
+    return NO_MOVED_SIDEWAYS;
 }
 
 U8 Parser::square(char sq[])
@@ -115,12 +115,12 @@ U8 Parser::square(char sq[])
 
     int col = sq[0] - 'A';
     int row = sq[1] - '1';
-    return (row * 8) + col;
+    return static_cast<U8>((row * 8) + col);
 }
 
 U32 Parser::move(string str, Board &board)
 {
-    int len = str.length();
+    size_t len = str.length();
     U8 from, to, piece, capture;
     U32 move = 0;
 
@@ -155,7 +155,7 @@ U32 Parser::move(string str, Board &board)
         // cout << "this is a move sideways"  << endl;
         flags |= MOVED_SIDEWAYS;
     }
-    move |= flags << 16;
+    move |= static_cast<U32>(flags) << 16;
     // cout << "move=" << hex<<move << endl;
     return move;
 }

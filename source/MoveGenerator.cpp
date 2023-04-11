@@ -49,9 +49,9 @@ void MoveGenerator::add_moves(U8 from, U64 targets, class MoveList &list, const 
 {
     while (targets)
     {
-        U32 to = bit_scan_forward(targets);
-        U32 capture = board[to];
-        Move_t move = from | (to << 8) | (flags << 16) | (capture << 24);
+        U8 to = bit_scan_forward(targets);
+        U8 capture = board[to];
+        Move_t move = static_cast<U32>(from) | (static_cast<U32>(to) << 8) | (static_cast<U32>(flags) << 16) | (static_cast<U32>(capture) << 24);
         list.push(move);
         targets &= targets - 1;
     }
@@ -61,8 +61,8 @@ void MoveGenerator::add_moves_check(U8 from, U64 targets, class MoveList &list, 
 {
     while (targets)
     {
-        U32 to = bit_scan_forward(targets);
-        U32 capture = board[to];
+        U8 to = bit_scan_forward(targets);
+        U8 capture = board[to];
         Move_t move;
         if (capture != EMPTY)
         {
@@ -70,7 +70,7 @@ void MoveGenerator::add_moves_check(U8 from, U64 targets, class MoveList &list, 
             if (!(((capture & (~1)) == DEATHSTAR) && (((side == WHITE) && (to > from)) || ((side == BLACK) && (to < from)))))
             {
                 // cout << "capture:" <<capture<< endl;
-                move = from | (to << 8) | (flags << 16) | (capture << 24);
+                move = static_cast<U32>(from) | (static_cast<U32>(to) << 8) | (static_cast<U32>(flags) << 16) | (static_cast<U32>(capture) << 24);
                 list.push(move);
             }
         }
@@ -79,7 +79,7 @@ void MoveGenerator::add_moves_check(U8 from, U64 targets, class MoveList &list, 
             // this is a not capture, we need to check if the move is forward
             if (((side == WHITE) && (to > from)) || ((side == BLACK) && (to < from)))
             {
-                move = from | (to << 8) | (flags << 16);
+                move = static_cast<U32>(from) | (static_cast<U32>(to) << 8) | (static_cast<U32>(flags) << 16);
                 list.push(move);
             }
         }
@@ -91,10 +91,10 @@ void MoveGenerator::add_moves_with_diff(int diff, U64 targets, class MoveList &l
 {
     while (targets)
     {
-        U32 to = bit_scan_forward(targets);
-        U32 from = ((U32)(to - diff)) % 64;
-        U32 capture = board[to];
-        Move_t move = from | (to << 8) | (flags << 16) | (capture << 24);
+        U8 to = bit_scan_forward(targets);
+        U32 from = (static_cast<U32>(to - diff)) % 64;
+        U8 capture = board[to];
+        Move_t move = static_cast<U32>(from) | (static_cast<U32>(to) << 8) | (static_cast<U32>(flags) << 16) | (static_cast<U32>(capture) << 24);
         list.push(move);
         targets &= targets - 1;
     }
@@ -245,7 +245,7 @@ U64 MoveGenerator::rankAttacks(U64 occ, int sq)
     return forward;
 }
 
-void MoveGenerator::add_tiefighter_moves(class MoveList &list, const class Board &board, const int side)
+void MoveGenerator::add_tiefighter_moves(class MoveList &list, const class Board &board, const U8 side)
 {
     U64 tiefighters = board.bitboards[TIEFIGHTER | side];
     U64 occupied = board.bitboards[WHITE] | board.bitboards[BLACK];
@@ -282,7 +282,7 @@ void MoveGenerator::add_tiefighter_moves(class MoveList &list, const class Board
     // cout << "found " <<dec<<list.length() << " moves" << endl;
 }
 
-void MoveGenerator::add_xwing_moves(class MoveList &list, const class Board &board, const int side)
+void MoveGenerator::add_xwing_moves(class MoveList &list, const class Board &board, const U8 side)
 {
     U64 xwings = board.bitboards[XWING | side];
     U64 occupied = board.bitboards[WHITE] | board.bitboards[BLACK];
@@ -302,7 +302,7 @@ void MoveGenerator::add_xwing_moves(class MoveList &list, const class Board &boa
     }
 }
 
-void MoveGenerator::add_all_moves(class MoveList &list, const class Board &board, const int side)
+void MoveGenerator::add_all_moves(class MoveList &list, const class Board &board, const U8 side)
 {
     add_tiefighter_moves(list, board, side);
     add_xwing_moves(list, board, side);

@@ -90,10 +90,10 @@ void Board::do_move(Move_t move)
 
     // update last_move_sideways.
     // First reset the flag, then check if the current move is sideways to set the flag
-    irrev.last_move_sideways &= ~(1 << irrev.side_to_move);
+    irrev.last_move_sideways &= static_cast<U8>(~(1 << irrev.side_to_move));
 
     if ((move_flags(move) & MOVED_SIDEWAYS) != 0)
-        irrev.last_move_sideways |= 1 << irrev.side_to_move;
+        irrev.last_move_sideways |= static_cast<U8>(1 << irrev.side_to_move);
     // cout << "do_move: last_move_sideways=" << (int)irrev.last_move_sideways << endl;
 
     // update side_to_move

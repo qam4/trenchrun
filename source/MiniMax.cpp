@@ -1,6 +1,6 @@
 #include "Board.h"
-#include "MoveList.h"
 #include "MoveGenerator.h"
+#include "MoveList.h"
 
 // https://www.chessprogramming.org/Minimax
 // This function returns the best score

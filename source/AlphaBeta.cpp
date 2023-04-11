@@ -1,6 +1,6 @@
 #include "Board.h"
-#include "MoveList.h"
 #include "MoveGenerator.h"
+#include "MoveList.h"
 
 // https://www.chessprogramming.org/Alpha-Beta
 int Board::alphabeta(int alpha, int beta, int depth)
@@ -29,7 +29,7 @@ int Board::alphabeta(int alpha, int beta, int depth)
         undo_move(move);
         if (value >= beta)
         {
-            return beta; // fail hard beta-cutoff
+            return beta;  // fail hard beta-cutoff
         }
         alpha = max(value, alpha);
     }
@@ -40,7 +40,7 @@ int Board::alphabeta(int alpha, int beta, int depth)
 Move_t Board::alphabeta_root(int depth)
 {
     MoveList list;
-    int i, n , value;
+    int i, n, value;
     Move_t move, bestmove = 0;
     int alpha = -INFINITY;
     int beta = INFINITY;
@@ -66,7 +66,7 @@ Move_t Board::alphabeta_root(int depth)
         }
         if (value >= beta)
         {
-            return move; // fail hard beta-cutoff
+            return move;  // fail hard beta-cutoff
         }
         if (value > alpha)
         {

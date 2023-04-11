@@ -5,11 +5,12 @@
 
 #include <cstdlib>
 #include <ctime>
-#include "Output.h"
+
 #include "Board.h"
-#include "Parser.h"
-#include "MoveList.h"
 #include "MoveGenerator.h"
+#include "MoveList.h"
+#include "Output.h"
+#include "Parser.h"
 
 using namespace std;
 #define SEARCH_DEPTH 6
@@ -17,7 +18,7 @@ using namespace std;
 /*
  *
  */
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     (void)argc;
     (void)argv;
@@ -62,7 +63,7 @@ int main(int argc, char **argv)
                 int number;
                 std::cin >> number;
 
-                move = list[number]; // Parser::move(input, board);
+                move = list[number];  // Parser::move(input, board);
             } while (!is_valid_move(move, board));
             board.do_move(move);
             cout << Output::board(board);
@@ -72,8 +73,8 @@ int main(int argc, char **argv)
                 break;
             clock_t tic = clock();
             cout << "Thinking..." << endl;
-            //move = board.minimax_root(SEARCH_DEPTH, false); // Computer is BLACK, trying to minimize
-            //move = board.negamax_root(SEARCH_DEPTH);
+            // move = board.minimax_root(SEARCH_DEPTH, false); // Computer is BLACK, trying to
+            // minimize move = board.negamax_root(SEARCH_DEPTH);
             move = board.alphabeta_root(SEARCH_DEPTH);
             clock_t toc = clock();
             double elapsed_secs = double(toc - tic) / CLOCKS_PER_SEC;

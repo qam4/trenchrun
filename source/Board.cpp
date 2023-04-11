@@ -4,8 +4,9 @@
  */
 
 #include "Board.h"
-#include "MoveList.h"
+
 #include "MoveGenerator.h"
+#include "MoveList.h"
 
 Board::Board()
 {
@@ -142,7 +143,9 @@ int Board::evaluate()
     M = Mobility (the number of legal moves)
     */
     int result = 0;
-    result = 100 * (pop_count(bitboards[WHITE_DEATHSTAR]) - pop_count(bitboards[BLACK_DEATHSTAR])) + 5 * (pop_count(bitboards[WHITE_TIEFIGHTER]) - pop_count(bitboards[BLACK_TIEFIGHTER])) + 3 * (pop_count(bitboards[WHITE_XWING]) - pop_count(bitboards[BLACK_XWING]));
+    result = 100 * (pop_count(bitboards[WHITE_DEATHSTAR]) - pop_count(bitboards[BLACK_DEATHSTAR]))
+        + 5 * (pop_count(bitboards[WHITE_TIEFIGHTER]) - pop_count(bitboards[BLACK_TIEFIGHTER]))
+        + 3 * (pop_count(bitboards[WHITE_XWING]) - pop_count(bitboards[BLACK_XWING]));
 
     // cout << "evaluate=" << result << endl;
     return result;
@@ -163,4 +166,3 @@ int Board::is_game_over()
 
     return 0;
 }
-

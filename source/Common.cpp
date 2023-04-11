@@ -4,6 +4,7 @@
  */
 
 #include "Common.h"
+
 #include "Output.h"
 
 // Count number of bits set to 1 in 64 bit word
@@ -13,14 +14,14 @@ int pop_count(U64 x)
     while (x)
     {
         count++;
-        x &= x - 1; // reset LS1B
+        x &= x - 1;  // reset LS1B
     }
     return count;
 }
 
-string static is_valid_move_err(Move_t move, const class Board &board);
+string static is_valid_move_err(Move_t move, const class Board& board);
 
-bool is_valid_move(Move_t move, const class Board &board)
+bool is_valid_move(Move_t move, const class Board& board)
 {
     string error = is_valid_move_err(move, board);
     if (error == "")
@@ -29,7 +30,7 @@ bool is_valid_move(Move_t move, const class Board &board)
     return false;
 }
 
-string is_valid_move_err(Move_t move, const class Board &board)
+string is_valid_move_err(Move_t move, const class Board& board)
 {
     U8 side = board.side_to_move();
     U8 from = move_from(move);
@@ -169,9 +170,11 @@ string is_valid_move_err(Move_t move, const class Board &board)
     // check death star can only be captures backwards
     if (is_capture(move))
     {
-        if ((side == WHITE) && (captured == BLACK_DEATHSTAR) && ((to & (~C64(0x7))) > (from & (~C64(0x7)))))
+        if ((side == WHITE) && (captured == BLACK_DEATHSTAR)
+            && ((to & (~C64(0x7))) > (from & (~C64(0x7)))))
             return "death star can only be captured backwards";
-        if ((side == BLACK) && (captured == WHITE_DEATHSTAR) && ((to & (~C64(0x7))) < (from & (~C64(0x7)))))
+        if ((side == BLACK) && (captured == WHITE_DEATHSTAR)
+            && ((to & (~C64(0x7))) < (from & (~C64(0x7)))))
             return "death star can only be captured backwards";
     }
 

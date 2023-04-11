@@ -11,7 +11,7 @@ class Board Parser::parse_fen(string fen)
 
     size_t len = fen.length();
 
-    size_t pos = 0; // position in string
+    size_t pos = 0;  // position in string
     //[not used]int square = A1;
 
     // 8 rows of pieces
@@ -29,7 +29,7 @@ class Board Parser::parse_fen(string fen)
                 col += c - '1';
             }
             else
-            { // find piece
+            {  // find piece
                 U8 piece = parse_piece(c);
                 if (piece)
                     board.add_piece(piece, (row * 8) + col);
@@ -118,7 +118,7 @@ U8 Parser::square(char sq[])
     return static_cast<U8>((row * 8) + col);
 }
 
-U32 Parser::move(string str, Board &board)
+U32 Parser::move(string str, Board& board)
 {
     size_t len = str.length();
     U8 from, to, piece, capture;

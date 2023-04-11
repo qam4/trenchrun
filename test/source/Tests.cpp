@@ -82,6 +82,7 @@ void Tests::parser_can_parse_fen()
 {
     cout << "- Can parse FEN test 1" << endl;
     string fen = "++++++++/1TT1TT1+/2~*~2+/XX3XX+/7+/xx3xx+/2+@+2+/1tt1tt1+";
+    // clang-format off
     U8 expected_board_A[64] = {
         EMPTY, WHITE_TIEFIGHTER, WHITE_TIEFIGHTER, EMPTY, WHITE_TIEFIGHTER, WHITE_TIEFIGHTER, EMPTY, WHITE_WALL,
         EMPTY, EMPTY, WHITE_WALL, WHITE_DEATHSTAR, WHITE_WALL, EMPTY, EMPTY, WHITE_WALL,
@@ -91,6 +92,7 @@ void Tests::parser_can_parse_fen()
         EMPTY, EMPTY, BLACK_WALL, BLACK_DEATHSTAR, BLACK_WALL, EMPTY, EMPTY, WHITE_WALL,
         EMPTY, BLACK_TIEFIGHTER, BLACK_TIEFIGHTER, EMPTY, BLACK_TIEFIGHTER, BLACK_TIEFIGHTER, EMPTY, WHITE_WALL,
         WHITE_WALL, WHITE_WALL, WHITE_WALL, WHITE_WALL, WHITE_WALL, WHITE_WALL, WHITE_WALL, WHITE_WALL};
+    // clang-format on
 
     Board board = Parser::parse_fen(fen);
 
@@ -104,6 +106,7 @@ void Tests::parser_can_parse_fen()
 
     cout << "- Can parse FEN test 2" << endl;
     fen = "++++++++/1TT1TT1+/2~*~2+/XX3XX+/7+/xx3xx+/2+@+2+/1tt1tt1+ b BW";
+    // clang-format off
     U8 expected_board_B[64] = {
         EMPTY, WHITE_TIEFIGHTER, WHITE_TIEFIGHTER, EMPTY, WHITE_TIEFIGHTER, WHITE_TIEFIGHTER, EMPTY, WHITE_WALL,
         EMPTY, EMPTY, WHITE_WALL, WHITE_DEATHSTAR, WHITE_WALL, EMPTY, EMPTY, WHITE_WALL,
@@ -113,6 +116,7 @@ void Tests::parser_can_parse_fen()
         EMPTY, EMPTY, BLACK_WALL, BLACK_DEATHSTAR, BLACK_WALL, EMPTY, EMPTY, WHITE_WALL,
         EMPTY, BLACK_TIEFIGHTER, BLACK_TIEFIGHTER, EMPTY, BLACK_TIEFIGHTER, BLACK_TIEFIGHTER, EMPTY, WHITE_WALL,
         WHITE_WALL, WHITE_WALL, WHITE_WALL, WHITE_WALL, WHITE_WALL, WHITE_WALL, WHITE_WALL, WHITE_WALL};
+    // clang-format on
 
     board = Parser::parse_fen(fen);
 
@@ -225,7 +229,7 @@ void Tests::move_generator_can_generate_tiefighter_moves()
     // check black player, captures, move forward
     board.add_piece(BLACK_TIEFIGHTER, D5);
     board.add_piece(WHITE_TIEFIGHTER, D2);
-    board.add_piece(WHITE_DEATHSTAR, G5); // cannot be taken forward
+    board.add_piece(WHITE_DEATHSTAR, G5);  // cannot be taken forward
     board.add_piece(WHITE_XWING, D7);
     board.set_side_to_move(BLACK);
     MoveGenerator::add_tiefighter_moves(list, board, board.side_to_move());

@@ -28,7 +28,7 @@ bool MoveList::contains_duplicates()
     return false;
 }
 
-bool MoveList::contains_valid_moves(const class Board &board)
+bool MoveList::contains_valid_moves(const class Board& board)
 {
     for (int i = 0; i < size; i++)
     {

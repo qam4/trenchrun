@@ -9,7 +9,7 @@ AlignConsecutiveBitFields: false
 AlignConsecutiveDeclarations: false
 AlignEscapedNewlines: DontAlign
 AlignOperands: DontAlign
-AlignTrailingComments: false
+AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: true
 AllowAllConstructorInitializersOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: true
@@ -29,7 +29,7 @@ BinPackParameters: false
 BraceWrapping:
   AfterCaseLabel: false
   AfterClass: true
-  AfterControlStatement: MultiLine
+  AfterControlStatement: Always
   AfterEnum: true
   AfterFunction: true
   AfterNamespace: true
@@ -38,7 +38,7 @@ BraceWrapping:
   AfterUnion: true
   AfterExternBlock: true
   BeforeCatch: false
-  BeforeElse: false
+  BeforeElse: true
   BeforeLambdaBody: true
   BeforeWhile: false
   IndentBraces: false
@@ -54,13 +54,13 @@ BreakConstructorInitializersBeforeComma: true
 BreakConstructorInitializers: BeforeComma
 BreakAfterJavaFieldAnnotations: true
 BreakStringLiterals: true
-ColumnLimit: 80
+ColumnLimit: 100
 CommentPragmas: '^ IWYU pragma:'
 CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
-Cpp11BracedListStyle: true
+Cpp11BracedListStyle: false
 DeriveLineEnding: false
 DerivePointerAlignment: false
 DisableFormat: false
@@ -88,7 +88,7 @@ IndentCaseBlocks: false
 IndentGotoLabels: true
 IndentPPDirectives: AfterHash
 IndentExternBlock: NoIndent
-IndentWidth: 2
+IndentWidth: 4
 IndentWrappedFunctionNames: false
 InsertTrailingCommas: Wrapped
 JavaScriptQuotes: Double

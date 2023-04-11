@@ -45,19 +45,26 @@ const U64 KING_LOOKUP_TABLE[64] = {
         };
 #endif
 
-void MoveGenerator::add_moves(U8 from, U64 targets, class MoveList &list, const class Board &board, const U8 flags)
+void MoveGenerator::add_moves(
+    U8 from, U64 targets, class MoveList& list, const class Board& board, const U8 flags)
 {
     while (targets)
     {
         U8 to = bit_scan_forward(targets);
         U8 capture = board[to];
-        Move_t move = static_cast<U32>(from) | (static_cast<U32>(to) << 8) | (static_cast<U32>(flags) << 16) | (static_cast<U32>(capture) << 24);
+        Move_t move = static_cast<U32>(from) | (static_cast<U32>(to) << 8)
+            | (static_cast<U32>(flags) << 16) | (static_cast<U32>(capture) << 24);
         list.push(move);
         targets &= targets - 1;
     }
 }
 
-void MoveGenerator::add_moves_check(U8 from, U64 targets, class MoveList &list, const class Board &board, const U8 flags, const U8 side)
+void MoveGenerator::add_moves_check(U8 from,
+                                    U64 targets,
+                                    class MoveList& list,
+                                    const class Board& board,
+                                    const U8 flags,
+                                    const U8 side)
 {
     while (targets)
     {
@@ -67,10 +74,12 @@ void MoveGenerator::add_moves_check(U8 from, U64 targets, class MoveList &list, 
         if (capture != EMPTY)
         {
             // this is a capture, we need to check if the capture is backwards for DEATHSTAR
-            if (!(((capture & (~1)) == DEATHSTAR) && (((side == WHITE) && (to > from)) || ((side == BLACK) && (to < from)))))
+            if (!(((capture & (~1)) == DEATHSTAR)
+                  && (((side == WHITE) && (to > from)) || ((side == BLACK) && (to < from)))))
             {
                 // cout << "capture:" <<capture<< endl;
-                move = static_cast<U32>(from) | (static_cast<U32>(to) << 8) | (static_cast<U32>(flags) << 16) | (static_cast<U32>(capture) << 24);
+                move = static_cast<U32>(from) | (static_cast<U32>(to) << 8)
+                    | (static_cast<U32>(flags) << 16) | (static_cast<U32>(capture) << 24);
                 list.push(move);
             }
         }
@@ -79,7 +88,8 @@ void MoveGenerator::add_moves_check(U8 from, U64 targets, class MoveList &list, 
             // this is a not capture, we need to check if the move is forward
             if (((side == WHITE) && (to > from)) || ((side == BLACK) && (to < from)))
             {
-                move = static_cast<U32>(from) | (static_cast<U32>(to) << 8) | (static_cast<U32>(flags) << 16);
+                move = static_cast<U32>(from) | (static_cast<U32>(to) << 8)
+                    | (static_cast<U32>(flags) << 16);
                 list.push(move);
             }
         }
@@ -87,14 +97,16 @@ void MoveGenerator::add_moves_check(U8 from, U64 targets, class MoveList &list, 
     }
 }
 
-void MoveGenerator::add_moves_with_diff(int diff, U64 targets, class MoveList &list, const class Board &board, const U8 flags)
+void MoveGenerator::add_moves_with_diff(
+    int diff, U64 targets, class MoveList& list, const class Board& board, const U8 flags)
 {
     while (targets)
     {
         U8 to = bit_scan_forward(targets);
         U32 from = (static_cast<U32>(to - diff)) % 64;
         U8 capture = board[to];
-        Move_t move = static_cast<U32>(from) | (static_cast<U32>(to) << 8) | (static_cast<U32>(flags) << 16) | (static_cast<U32>(capture) << 24);
+        Move_t move = static_cast<U32>(from) | (static_cast<U32>(to) << 8)
+            | (static_cast<U32>(flags) << 16) | (static_cast<U32>(capture) << 24);
         list.push(move);
         targets &= targets - 1;
     }
@@ -131,12 +143,16 @@ U64 MoveGenerator::mirrorHorizontal(U64 x)
 // Sliding piece attacks
 // https://www.chessprogramming.org/Sliding_Piece_Attacks
 
-
-
 // Ray Masks (should be turned into lookup tables)
-U64 MoveGenerator::rankMask(int sq) { return C64(0xff) << (sq & 56); }
+U64 MoveGenerator::rankMask(int sq)
+{
+    return C64(0xff) << (sq & 56);
+}
 
-U64 MoveGenerator::fileMask(int sq) { return C64(0x0101010101010101) << (sq & 7); }
+U64 MoveGenerator::fileMask(int sq)
+{
+    return C64(0x0101010101010101) << (sq & 7);
+}
 
 U64 MoveGenerator::diagMask(int sq)
 {
@@ -156,10 +172,22 @@ U64 MoveGenerator::antiDiagMask(int sq)
     return (maindia >> sout) << nort;
 }
 // excluding the square bit:
-U64 MoveGenerator::rankMaskEx(int sq) { return (C64(1) << sq) ^ rankMask(sq); }
-U64 MoveGenerator::fileMaskEx(int sq) { return (C64(1) << sq) ^ fileMask(sq); }
-U64 MoveGenerator::diagMaskEx(int sq) { return (C64(1) << sq) ^ diagMask(sq); }
-U64 MoveGenerator::antiDiagMaskEx(int sq) { return (C64(1) << sq) ^ antiDiagMask(sq); }
+U64 MoveGenerator::rankMaskEx(int sq)
+{
+    return (C64(1) << sq) ^ rankMask(sq);
+}
+U64 MoveGenerator::fileMaskEx(int sq)
+{
+    return (C64(1) << sq) ^ fileMask(sq);
+}
+U64 MoveGenerator::diagMaskEx(int sq)
+{
+    return (C64(1) << sq) ^ diagMask(sq);
+}
+U64 MoveGenerator::antiDiagMaskEx(int sq)
+{
+    return (C64(1) << sq) ^ antiDiagMask(sq);
+}
 
 #if 0
 U64 MoveGenerator::tiefighterMask  (int sq) {return rankMask(sq)     | fileMask(sq);}
@@ -176,15 +204,15 @@ U64 MoveGenerator::diagAttacks(U64 occ, int sq)
     // lineAttacks=(((o&m)-2s) ^ ((o&m)'-2s')')&m
     U64 forward, reverse, slider, lineMask;
 
-    lineMask = diagMaskEx(sq); // excludes square of slider
-    slider = C64(1) << sq;     // singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
+    lineMask = diagMaskEx(sq);  // excludes square of slider
+    slider = C64(1) << sq;      // singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
 
-    forward = occ & lineMask;    // also performs the first subtraction by clearing the s in o
-    reverse = byteswap(forward); // o'-s'
-    forward -= (slider);         // o -2s
-    reverse -= byteswap(slider); // o'-2s'
+    forward = occ & lineMask;     // also performs the first subtraction by clearing the s in o
+    reverse = byteswap(forward);  // o'-s'
+    forward -= (slider);          // o -2s
+    reverse -= byteswap(slider);  // o'-2s'
     forward ^= byteswap(reverse);
-    forward &= lineMask; // mask the line again
+    forward &= lineMask;  // mask the line again
     return forward;
 }
 
@@ -195,15 +223,15 @@ U64 MoveGenerator::antiDiagAttacks(U64 occ, int sq)
     // lineAttacks=(((o&m)-2s) ^ ((o&m)'-2s')')&m
     U64 forward, reverse, slider, lineMask;
 
-    lineMask = antiDiagMaskEx(sq); // excludes square of slider
-    slider = C64(1) << sq;         // singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
+    lineMask = antiDiagMaskEx(sq);  // excludes square of slider
+    slider = C64(1) << sq;          // singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
 
-    forward = occ & lineMask;    // also performs the first subtraction by clearing the s in o
-    reverse = byteswap(forward); // o'-s'
-    forward -= (slider);         // o -2s
-    reverse -= byteswap(slider); // o'-2s'
+    forward = occ & lineMask;     // also performs the first subtraction by clearing the s in o
+    reverse = byteswap(forward);  // o'-s'
+    forward -= (slider);          // o -2s
+    reverse -= byteswap(slider);  // o'-2s'
     forward ^= byteswap(reverse);
-    forward &= lineMask; // mask the line again
+    forward &= lineMask;  // mask the line again
     return forward;
 }
 
@@ -214,15 +242,15 @@ U64 MoveGenerator::fileAttacks(U64 occ, int sq)
     // lineAttacks=(((o&m)-2s) ^ ((o&m)'-2s')')&m
     U64 forward, reverse, slider, lineMask;
 
-    lineMask = fileMaskEx(sq); // excludes square of slider
-    slider = C64(1) << sq;     // singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
+    lineMask = fileMaskEx(sq);  // excludes square of slider
+    slider = C64(1) << sq;      // singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
 
-    forward = occ & lineMask;    // also performs the first subtraction by clearing the s in o
-    reverse = byteswap(forward); // o'-s'
-    forward -= (slider);         // o -2s
-    reverse -= byteswap(slider); // o'-2s'
+    forward = occ & lineMask;     // also performs the first subtraction by clearing the s in o
+    reverse = byteswap(forward);  // o'-s'
+    forward -= (slider);          // o -2s
+    reverse -= byteswap(slider);  // o'-2s'
     forward ^= byteswap(reverse);
-    forward &= lineMask; // mask the line again
+    forward &= lineMask;  // mask the line again
     return forward;
 }
 
@@ -233,23 +261,26 @@ U64 MoveGenerator::rankAttacks(U64 occ, int sq)
     // lineAttacks=(((o&m)-2s) ^ ((o&m)'-2s')')&m
     U64 forward, reverse, slider, lineMask;
 
-    lineMask = rankMaskEx(sq); // excludes square of slider
-    slider = C64(1) << sq;     // singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
+    lineMask = rankMaskEx(sq);  // excludes square of slider
+    slider = C64(1) << sq;      // singleBitboard[sqOfSlider]; // single bit 1 << sq, 2^sq
 
-    forward = occ & lineMask;            // also performs the first subtraction by clearing the s in o
-    reverse = mirrorHorizontal(forward); // o'-s'
-    forward -= (slider);                 // o -2s
-    reverse -= mirrorHorizontal(slider); // o'-2s'
+    forward = occ & lineMask;  // also performs the first subtraction by clearing the s in o
+    reverse = mirrorHorizontal(forward);  // o'-s'
+    forward -= (slider);                  // o -2s
+    reverse -= mirrorHorizontal(slider);  // o'-2s'
     forward ^= mirrorHorizontal(reverse);
-    forward &= lineMask; // mask the line again
+    forward &= lineMask;  // mask the line again
     return forward;
 }
 
-void MoveGenerator::add_tiefighter_moves(class MoveList &list, const class Board &board, const U8 side)
+void MoveGenerator::add_tiefighter_moves(class MoveList& list,
+                                         const class Board& board,
+                                         const U8 side)
 {
     U64 tiefighters = board.bitboards[TIEFIGHTER | side];
     U64 occupied = board.bitboards[WHITE] | board.bitboards[BLACK];
-    U64 friendly = board.bitboards[side] | board.bitboards[BLACK_WALL] | board.bitboards[WHITE_WALL] | BOARD_LIMITS; // own pieces and walls
+    U64 friendly = board.bitboards[side] | board.bitboards[BLACK_WALL] | board.bitboards[WHITE_WALL]
+        | BOARD_LIMITS;  // own pieces and walls
 
 #if 0
     cout << "tiefighters=0x" << hex << tiefighters<< endl;
@@ -282,11 +313,12 @@ void MoveGenerator::add_tiefighter_moves(class MoveList &list, const class Board
     // cout << "found " <<dec<<list.length() << " moves" << endl;
 }
 
-void MoveGenerator::add_xwing_moves(class MoveList &list, const class Board &board, const U8 side)
+void MoveGenerator::add_xwing_moves(class MoveList& list, const class Board& board, const U8 side)
 {
     U64 xwings = board.bitboards[XWING | side];
     U64 occupied = board.bitboards[WHITE] | board.bitboards[BLACK];
-    U64 friendly = board.bitboards[side] | board.bitboards[BLACK_WALL] | board.bitboards[WHITE_WALL] | BOARD_LIMITS; // own pieces and walls
+    U64 friendly = board.bitboards[side] | board.bitboards[BLACK_WALL] | board.bitboards[WHITE_WALL]
+        | BOARD_LIMITS;  // own pieces and walls
 
     while (xwings)
     {
@@ -302,7 +334,7 @@ void MoveGenerator::add_xwing_moves(class MoveList &list, const class Board &boa
     }
 }
 
-void MoveGenerator::add_all_moves(class MoveList &list, const class Board &board, const U8 side)
+void MoveGenerator::add_all_moves(class MoveList& list, const class Board& board, const U8 side)
 {
     add_tiefighter_moves(list, board, side);
     add_xwing_moves(list, board, side);

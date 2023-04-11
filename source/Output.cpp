@@ -4,6 +4,7 @@
  */
 
 #include "Output.h"
+
 #include "MoveList.h"
 
 #define MAX_ROW 6
@@ -64,7 +65,7 @@ string Output::square(U8 square)
     return ss.str();
 }
 
-string Output::move(Move_t move, const class Board &board)
+string Output::move(Move_t move, const class Board& board)
 {
     (void)board;
     stringstream ss;
@@ -75,7 +76,7 @@ string Output::move(Move_t move, const class Board &board)
     return ss.str();
 }
 
-string Output::move_fancy(Move_t move, const class Board &board)
+string Output::move_fancy(Move_t move, const class Board& board)
 {
     stringstream ss;
 
@@ -91,7 +92,10 @@ string Output::move_fancy(Move_t move, const class Board &board)
     return ss.str();
 }
 
-string Output::movelist(const class MoveList &list, const class Board &board, bool fancy = false, bool choice = false)
+string Output::movelist(const class MoveList& list,
+                        const class Board& board,
+                        bool fancy = false,
+                        bool choice = false)
 {
     stringstream ss;
     if (list.length() == 0)
@@ -127,7 +131,7 @@ string Output::movelist(const class MoveList &list, const class Board &board, bo
     return ss.str();
 }
 
-string Output::board_with_movelist(const class MoveList &list, const class Board &board)
+string Output::board_with_movelist(const class MoveList& list, const class Board& board)
 {
     stringstream ss;
     for (int row = MAX_ROW; row >= 0; row--)

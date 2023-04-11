@@ -8,6 +8,7 @@ https://athena.ecs.csus.edu/~gordonvs/180/Tournaments/tres.html
 https://athena.ecs.csus.edu/~gordonvs/180/180ref.html
 
 
+- Move generation
 https://peterellisjones.com/posts/generating-legal-chess-moves-efficiently/
 https://code.google.com/archive/p/javalin-chess/wikis/README.wiki
 https://chess.stackexchange.com/questions/37309/move-generation-for-sliding-pieces-and-hyperbola-quintessence
@@ -15,7 +16,17 @@ https://www.chessprogramming.org/Hyperbola_Quintessence
 
 https://www.techfak.uni-bielefeld.de/~skopp/Lehre/STdKI_SS10/VL3-GamePlaying.pdf
 
-Hashing and Move Ordering
+- Move selection (Algos, position evaluation, hashing, move ordering, ...)
 https://www.ics.uci.edu/~eppstein/180a/970424.html
+https://www.cs.unm.edu/~aaron/downloads/qian_search.pdf
+https://www.josherv.in/2022/12/17/chess-2/
 
+search: "chess programming move ordering evaluate every move leaf"
+
+- Misc
 https://www.dailychess.com/rival/programming/index.php
+https://healeycodes.com/building-my-own-chess-engine
+
+
+
+https://github.com/friendlyanon/cmake-init

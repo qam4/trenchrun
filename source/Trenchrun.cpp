@@ -80,6 +80,8 @@ int main(int argc, char** argv)
             double elapsed_secs = double(toc - tic) / CLOCKS_PER_SEC;
             cout << "time: " << elapsed_secs << "s" << endl;
             cout << "searched moves: " << board.get_searched_moves() << endl;
+            cout << "searched moves per second: " << int(board.get_searched_moves() / elapsed_secs)
+                 << endl;
 
             cout << "Computer move: " << Output::move_fancy(move, board) << endl;
             board.do_move(move);

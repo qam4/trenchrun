@@ -8,7 +8,7 @@
 /* TODO
 board.do_move()
 board.undo_move()
-board.evalutate()
+board.evaluate()
 parser.move()
 movegenerator.add_all_moves()
 */

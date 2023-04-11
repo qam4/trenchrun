@@ -109,7 +109,7 @@ OTHER DETAILS -
      is by actually capturing the death star (or the opponent having no move).
 -- unlike chess, there are no pawns or knights or queens.
 -- unlike chess, inability to move isn't a stalemate draw - it is a LOSS.
--- unlike checkers, capturing isn't compulsary.
+-- unlike checkers, capturing isn't compulsory.
 -- unlike Go (Weiqi), players don't place pieces on the board.
     The pieces are on the board at the beginning, and are moved or captured.
 
@@ -150,7 +150,7 @@ It must fulfill the following requirements:
    followed by the TO square.  For instance, in the position above, the
    human could use the x-wing on C4 to capture the computer's x-wing on A6
    and the move would be entered as follows: C4A6 (no spaces).  Of course,
-   capturing is not compulsary, so there are many other possible legal moves,
+   capturing is not compulsory, so there are many other possible legal moves,
    such as G3E5, C4D5, or F1G1 (presuming that the human hadn't made some
    horizontal tie-fighter move such as B1A1 on the previous turn), etc.
 

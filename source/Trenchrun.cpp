@@ -5,9 +5,11 @@
 
 #include <cstdlib>
 #include <ctime>
-#include "Tests.h"
 #include "Output.h"
 #include "Board.h"
+#include "Parser.h"
+#include "MoveList.h"
+#include "MoveGenerator.h"
 
 using namespace std;
 #define SEARCH_DEPTH 6

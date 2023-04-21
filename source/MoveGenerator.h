@@ -40,6 +40,7 @@ private:
     static void add_moves_with_diff(int diff, U64 targets, class MoveList &list, const class Board &board, const U8 flags);
     // static void add_promotions_with_diff(int diff, U64 targets, class MoveList &list, const class Board &board, const U8 flags);
     static U64 byteswap(U64 x);
+    static U64 flipVertical(U64 x);
     static U64 mirrorHorizontal(U64 x);
     static U64 rankMask(int sq);
     static U64 fileMask(int sq);

@@ -113,12 +113,31 @@ void MoveGenerator::add_moves_with_diff(
 }
 
 /**
+ * Flip a bitboard vertically about the center ranks.
+ * Rank 1 is mapped to rank 8 and vice versa.
+ * @param x any bitboard
+ * @return bitboard x flipped vertically
+ */
+U64 MoveGenerator::flipVertical(U64 x)
+{
+    const U64 k1 = C64(0x00FF00FF00FF00FF);
+    const U64 k2 = C64(0x0000FFFF0000FFFF);
+    x = ((x >> 8) & k1) | ((x & k1) << 8);
+    x = ((x >> 16) & k2) | ((x & k2) << 16);
+    x = (x >> 32) | (x << 32);
+    return x;
+}
+
+/**
  * Byte swap === flip vertical
  */
 U64 MoveGenerator::byteswap(U64 x)
 {
+#if 0
     //  __builtin_bswap64()
     return (__builtin_bswap64(x));
+#endif
+    return flipVertical(x);
 }
 
 /**

@@ -10,8 +10,20 @@ int Board::minimax(int depth, bool maximizing_player)
     int i, n, bestvalue, value;
     Move_t move;
 
+    if (is_game_over())
+    {
+        if (maximizing_player == true)
+        {
+            return -MAX_SCORE;
+        }
+        else
+        {
+            return MAX_SCORE;
+        }
+    }
+
     // Leaf node
-    if (depth == 0 || is_game_over())
+    if (depth == 0)
     {
         return evaluate();
     }

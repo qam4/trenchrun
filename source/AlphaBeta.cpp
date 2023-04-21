@@ -9,8 +9,13 @@ int Board::alphabeta(int alpha, int beta, int depth)
     int i, n, value;
     Move_t move;
 
+    if (is_game_over())
+    {
+        return -MAX_SCORE;
+    }
+
     // Leaf node
-    if (depth == 0 || is_game_over())
+    if (depth == 0)
     {
         int who2move = (side_to_move() == WHITE) ? 1 : -1;
         return who2move * evaluate();

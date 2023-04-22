@@ -45,3 +45,25 @@ TEST_CASE("board_can_reset", "[board]")
     board.reset();
     REQUIRE(board.is_blank());
 }
+
+TEST_CASE("board_is_game_over", "[board]")
+{
+    cout << "- Board: is game over" << endl;
+    Board board = Board();
+    REQUIRE(board.is_game_over());
+    board.add_piece(WHITE_DEATHSTAR, D2);  // only the deathstar
+    REQUIRE(board.is_game_over());
+    board.add_piece(WHITE_TIEFIGHTER, D1);  // one piece that can move and the deathstar
+    REQUIRE(!board.is_game_over());
+    board.remove_piece(D2);  // only one piece that can move
+    REQUIRE(board.is_game_over());
+    board.reset();
+
+    board.set_side_to_move(BLACK);
+    board.add_piece(BLACK_DEATHSTAR, D6);
+    REQUIRE(board.is_game_over());
+    board.add_piece(BLACK_TIEFIGHTER, D7);
+    REQUIRE(!board.is_game_over());
+    board.remove_piece(D6);
+    REQUIRE(board.is_game_over());
+}

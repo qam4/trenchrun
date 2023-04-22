@@ -20,7 +20,11 @@ project(trenchrunTests LANGUAGES CXX)
 # ---- Tests ----
 
 add_executable(trenchrun_test
-    source/Tests.cpp
+    source/TestBoard.cpp
+    source/TestParser.cpp
+    source/TestMove.cpp
+    source/TestMoveList.cpp
+    source/TestMoveGenerator.cpp
     source/TestsRunner.cpp
     )
 target_link_libraries(trenchrun_test PRIVATE trenchrun_lib)

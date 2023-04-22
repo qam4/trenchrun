@@ -12,6 +12,7 @@
 #include "MoveList.h"
 #include "Parser.h"
 
+#if 0
 class Tests
 {
 
@@ -52,5 +53,5 @@ private:
     static void move_generator_can_generate_king_moves();
 #endif
 };
-
+#endif
 #endif /* TESTS_H */

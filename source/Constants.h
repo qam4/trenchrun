@@ -22,7 +22,8 @@
    A B C D E F G
 */
 
-const int MAX_SCORE = 1000;
+const int MAX_SCORE = 2000;
+const int MATE_SCORE = 1000;
 
 // PIECES
 

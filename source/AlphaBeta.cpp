@@ -11,7 +11,7 @@ int Board::alphabeta(int alpha, int beta, int depth)
 
     if (is_game_over())
     {
-        return -MAX_SCORE;
+        return -MATE_SCORE;
     }
 
     // Leaf node

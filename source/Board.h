@@ -25,7 +25,7 @@ private:
     } irrev;
 
     int searched_moves;
-    int turns;
+    int game_ply;
 
 public:
     Board();
@@ -38,6 +38,7 @@ public:
     int evaluate();
     int is_game_over();
     // Algos
+    Move_t search(int depth);
     int minimax(int depth, bool maximizing_player);
     Move_t minimax_root(int depth, bool maximizing_player);
     int negamax(int depth);
@@ -51,7 +52,7 @@ public:
     U8 side_to_move() const { return irrev.side_to_move; };
     U8 last_move_sideways() const { return irrev.last_move_sideways; };
     int get_searched_moves() const { return searched_moves; };
-    int get_turns() const { return turns; };
+    int get_game_ply() const { return game_ply; };
     void set_side_to_move(U8 side) { irrev.side_to_move = side; };
     void set_last_move_sideways(U8 val) { irrev.last_move_sideways = val; };
 };

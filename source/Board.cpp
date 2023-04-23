@@ -56,7 +56,7 @@ void Board::reset()
     }
     irrev.last_move_sideways = 0;
     irrev.side_to_move = WHITE;
-    turns = 1;
+    game_ply = 1;
 }
 
 U8 Board::operator[](const int square) const
@@ -100,7 +100,7 @@ void Board::do_move(Move_t move)
     // update side_to_move
     irrev.side_to_move ^= 1;
 
-    turns++;
+    game_ply++;
 }
 
 void Board::undo_move(Move_t move)
@@ -123,7 +123,7 @@ void Board::undo_move(Move_t move)
     irrev.last_move_sideways = move_flags(move) & LAST_MOVE_SIDEWAYS_MASK;
     // cout << "undo_move: last_move_sideways=" <<(int)irrev.last_move_sideways << endl;
 
-    turns--;
+    game_ply--;
 }
 
 int Board::evaluate()
@@ -165,4 +165,14 @@ int Board::is_game_over()
         return 1;
 
     return 0;
+}
+
+Move_t Board::search(int depth)
+{
+#if 0
+    Move_t move = minimax_root(depth, side_to_move() == WHITE);
+    Move_t move = negamax_root(depth);
+#endif
+    Move_t move = alphabeta_root(depth);
+    return move;
 }

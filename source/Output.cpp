@@ -26,7 +26,7 @@ string Output::board(const class Board board)
     ss << endl;
     ss << "   A B C D E F G " << endl;
     ss << ((board.side_to_move() == WHITE) ? "WHITE" : "BLACK") << " turn" << endl;
-    ss << "Turn: " << board.get_turns() << endl;
+    ss << "Ply: " << board.get_game_ply() << endl;
     // ss << "last_move_sideways=" << (int)board.last_move_sideways() << endl;
     return ss.str();
 }
@@ -52,7 +52,16 @@ string Output::bitboard(U64 bb)
 string Output::piece(U8 piece)
 {
     stringstream ss;
+    if (piece & BLACK)
+    {
+        ss << "\033[91m";  // Red
+    }
+    else if (piece)
+    {
+        ss << "\033[97m";  // White
+    }
     ss << PIECE_CHARS[piece];
+    ss << "\033[0m";
     return ss.str();
 }
 
@@ -108,6 +117,10 @@ string Output::movelist(const class MoveList& list,
         if (i > 0)
         {
             ss << ", ";
+            if (i % 8 == 0)
+            {
+                ss << endl;
+            }
         }
         if (fancy)
         {
@@ -122,12 +135,8 @@ string Output::movelist(const class MoveList& list,
         {
             ss << " [" << i << "]";
         }
-
-        if (i % 8 == 7 || i == list.length() - 1)
-        {
-            ss << endl;
-        }
     }
+    ss << endl;
     return ss.str();
 }
 

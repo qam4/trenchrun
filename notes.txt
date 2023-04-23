@@ -21,11 +21,16 @@ https://www.ics.uci.edu/~eppstein/180a/970424.html
 https://www.cs.unm.edu/~aaron/downloads/qian_search.pdf
 https://www.josherv.in/2022/12/17/chess-2/
 
+- MVV LVA
+https://rustic-chess.org/search/ordering/mvv_lva.html
+
 search: "chess programming move ordering evaluate every move leaf"
 
 - Misc
 https://www.dailychess.com/rival/programming/index.php
 https://healeycodes.com/building-my-own-chess-engine
+
+
 
 
 

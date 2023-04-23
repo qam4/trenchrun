@@ -11,7 +11,7 @@ int Board::alphabeta(int alpha, int beta, int depth)
 
     if (is_game_over())
     {
-        return -MATE_SCORE;
+        return -MATE_SCORE + search_ply;
     }
 
     // Leaf node
@@ -23,11 +23,13 @@ int Board::alphabeta(int alpha, int beta, int depth)
     }
 
     MoveGenerator::add_all_moves(list, *this, side_to_move());
+    MoveGenerator::score_moves(list, *this);
     n = list.length();
 
     for (i = 0; i < n; i++)
     {
         searched_moves++;
+        list.sort_moves(i);
         move = list[i];
         do_move(move);
         value = -alphabeta(-beta, -alpha, depth - 1);
@@ -54,12 +56,14 @@ Move_t Board::alphabeta_root(int depth)
     searched_moves = 0;
 
     MoveGenerator::add_all_moves(list, *this, side_to_move());
-    // cout << Output::movelist(list, *this, false, false);
+    MoveGenerator::score_moves(list, *this);
+    cout << Output::movelist(list, *this, true, false);
     n = list.length();
 
     for (i = 0; i < n; i++)
     {
         searched_moves++;
+        list.sort_moves(i);
         move = list[i];
         do_move(move);
         value = -alphabeta(-beta, -alpha, depth - 1);

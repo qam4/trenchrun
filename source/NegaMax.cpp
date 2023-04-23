@@ -12,7 +12,7 @@ int Board::negamax(int depth)
 
     if (is_game_over())
     {
-        return -MATE_SCORE;
+        return -MATE_SCORE + search_ply;
     }
 
     // Leaf node

@@ -15,7 +15,7 @@
 #include "Parser.h"
 
 using namespace std;
-#define SEARCH_DEPTH 6
+#define SEARCH_DEPTH 10
 
 static void print_help(void);
 

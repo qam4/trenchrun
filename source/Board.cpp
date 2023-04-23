@@ -101,6 +101,7 @@ void Board::do_move(Move_t move)
     irrev.side_to_move ^= 1;
 
     game_ply++;
+    search_ply++;
 }
 
 void Board::undo_move(Move_t move)
@@ -124,6 +125,7 @@ void Board::undo_move(Move_t move)
     // cout << "undo_move: last_move_sideways=" <<(int)irrev.last_move_sideways << endl;
 
     game_ply--;
+    search_ply--;
 }
 
 int Board::evaluate()
@@ -169,6 +171,7 @@ int Board::is_game_over()
 
 Move_t Board::search(int depth)
 {
+    search_ply = 0;
 #if 0
     Move_t move = minimax_root(depth, side_to_move() == WHITE);
     Move_t move = negamax_root(depth);

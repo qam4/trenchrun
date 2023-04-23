@@ -98,6 +98,11 @@ string Output::move_fancy(Move_t move, const class Board& board)
     }
     ss << Output::square(move_to(move));
     ss << (((move_flags(move) & MOVED_SIDEWAYS) != 0) ? "-" : "");
+    U16 score = move_score(move);
+    if (score)
+    {
+        ss << "[" << score << "]";
+    }
     return ss.str();
 }
 

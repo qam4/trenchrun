@@ -355,6 +355,19 @@ void MoveGenerator::add_all_moves(class MoveList& list, const class Board& board
     add_xwing_moves(list, board, side);
 }
 
+void MoveGenerator::score_moves(class MoveList& list, const class Board& board)
+{
+    int n = list.length();
+
+    for (int i = 0; i < n; i++)
+    {
+        Move_t move = list[i];
+        U16 score = MVVLVA[board[move_to(move)] >> 1][board[move_from(move)] >> 1];
+        move_add_score(&move, score);
+        list.set_move(i, move);
+    }
+}
+
 #if 0
 void MoveGenerator::add_pawn_pushes(class MoveList &list, const class Board &board, const int side){
     const int diffs[2]                   = {8, 64-8};

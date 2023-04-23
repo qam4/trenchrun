@@ -12,6 +12,17 @@
 #include "Board.h"
 #include "Output.h"
 
+// Move ordering table
+// Move valuable victim, least valuable attacker
+const U16 MVVLVA[5][5] =
+{
+    {0, 0, 0, 0, 0},   // victim = None, attacker None, W, X, T, D
+    {0, 0, 0, 0, 0},   // victim = wall, attacker None, W, X, T, D
+    {0, 0, 11, 10, 0}, // victim = xwing, attacker None, W, X, T, D
+    {0, 0, 21, 20, 0}, // victim = tiefighter, attacker None, W, X, T, D
+    {0, 0, 31, 30, 0},   // victim = deathstar, attacker None, W, X, T, D
+};
+
 class MoveGenerator
 {
 
@@ -19,6 +30,7 @@ public:
     static void add_tiefighter_moves(class MoveList &list, const class Board &board, const U8 side);
     static void add_xwing_moves(class MoveList &list, const class Board &board, const U8 side);
     static void add_all_moves(class MoveList &list, const class Board &board, const U8 side);
+    static void score_moves(class MoveList &list, const class Board &board);
 
 #if 0
     static void add_pawn_pushes(class MoveList &list, const class Board &board, const int side);

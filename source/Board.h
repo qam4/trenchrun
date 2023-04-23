@@ -26,6 +26,7 @@ private:
 
     int searched_moves;
     int game_ply;
+    int search_ply;
 
 public:
     Board();

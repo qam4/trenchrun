@@ -14,11 +14,11 @@ int Board::minimax(int depth, bool maximizing_player)
     {
         if (maximizing_player == true)
         {
-            return -MATE_SCORE;
+            return -MATE_SCORE + search_ply;
         }
         else
         {
-            return MATE_SCORE;
+            return MATE_SCORE - search_ply;
         }
     }
 

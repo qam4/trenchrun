@@ -33,12 +33,20 @@ public:
 #endif
     return data[--size];
   }
+  void set_move(const int idx, Move_t move)
+  {
+#ifdef DEBUG
+    assert(size > 0);
+#endif
+    data[idx] = move;
+  }
   void inline reset() { size = 0; };
   Move_t inline operator[](const int idx) const { return data[idx]; };
   int inline length() const { return size; };
   bool contains(Move_t move);
   bool contains_duplicates();
   bool contains_valid_moves(const class Board &board);
+  void sort_moves(int current_index);
 };
 
 #endif /* MOVELIST_H */

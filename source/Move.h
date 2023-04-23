@@ -15,15 +15,16 @@ static const U8 NO_FLAGS = 0;
 static const U8 LAST_MOVE_SIDEWAYS_MASK = 3;
 static const U8 MOVED_SIDEWAYS = 4;
 
-Move_t inline build_move(U8 from, U8 to) { return static_cast<U32>(from) | (static_cast<U32>(to) << 8); }
-Move_t inline build_capture(U8 from, U8 to, U8 capture) { return static_cast<U32>(from) | (static_cast<U32>(to) << 8) | (static_cast<U32>(capture) << 24); }
-Move_t inline build_move_flags(U8 from, U8 to, U8 flags) { return static_cast<U32>(from) | (static_cast<U32>(to) << 8) | (static_cast<U32>(flags) << 16); }
+Move_t inline build_move(U8 from, U8 to) { return (from & 0x3FU) | (to & 0x3FU) << 6; }
+Move_t inline build_capture(U8 from, U8 to, U8 capture) { return (from & 0x3FU) | (to & 0x3FU) << 6 | (capture & 0xFU) << 12; }
+Move_t inline build_move_flags(U8 from, U8 to, U8 flags) { return (from & 0x3FU) | (to & 0x3FU) << 6 | (flags & 0x7U) << 16; }
+Move_t inline build_move_all(U8 from, U8 to, U8 flags, U8 capture) { return (from & 0x3FU) | (to & 0x3FU) << 6 | (capture & 0xFU) << 12 | (flags & 0x7U) << 16; }
 
-bool inline is_capture(Move_t move) { return move & (0xFFULL << 24); }
+bool inline is_capture(Move_t move) { return (move >> 12) & 0xFU; }
 
-U8 inline move_from(Move_t move) { return (move & 0xFFULL); }
-U8 inline move_to(Move_t move) { return (move & 0xFF00) >> 8; }
-U8 inline move_captured(Move_t move) { return static_cast<U8>((move & 0xFF000000) >> 24); }
-U32 inline move_flags(Move_t move) { return (move & 0xFF0000) >> 16; }
+U8 inline move_from(Move_t move) { return move & 0x3FU; }
+U8 inline move_to(Move_t move) { return (move >> 6) & 0x3FU; }
+U8 inline move_captured(Move_t move) { return (move >> 12) & 0xFU; }
+U32 inline move_flags(Move_t move) { return (move >> 16) & 0x7U; }
 
 #endif /* MOVES_H */

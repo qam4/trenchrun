@@ -134,16 +134,6 @@ U32 Parser::move(string str, Board& board)
     capture = board[to];
     if ((from == NULL_SQUARE) || (to == NULL_SQUARE))
         return 0;
-    if (capture != EMPTY)
-    {
-        // cout << "this is a capture"  << endl;
-        move = build_capture(from, to, capture);
-    }
-    else
-    {
-        // cout << "this is a move"  << endl;
-        move = build_move(from, to);
-    }
     U8 flags = NO_FLAGS | board.last_move_sideways();
     // Check if tie-fighter sideway move
     // cout << "piece=" << ((piece&(~1)) == TIEFIGHTER)
@@ -155,7 +145,7 @@ U32 Parser::move(string str, Board& board)
         // cout << "this is a move sideways"  << endl;
         flags |= MOVED_SIDEWAYS;
     }
-    move |= static_cast<U32>(flags) << 16;
+    move |= build_move_all(from, to, flags, capture);
     // cout << "move=" << hex<<move << endl;
     return move;
 }

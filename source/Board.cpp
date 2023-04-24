@@ -147,7 +147,8 @@ int Board::evaluate()
     int result = 0;
     result = 100 * (pop_count(bitboards[WHITE_DEATHSTAR]) - pop_count(bitboards[BLACK_DEATHSTAR]))
         + 5 * (pop_count(bitboards[WHITE_TIEFIGHTER]) - pop_count(bitboards[BLACK_TIEFIGHTER]))
-        + 3 * (pop_count(bitboards[WHITE_XWING]) - pop_count(bitboards[BLACK_XWING]));
+        + 3 * (pop_count(bitboards[WHITE_XWING] & DARK_SQUARES) - pop_count(bitboards[BLACK_XWING] & DARK_SQUARES))
+        + 1 * (pop_count(bitboards[WHITE_XWING] & LIGHT_SQUARES) - pop_count(bitboards[BLACK_XWING] & LIGHT_SQUARES));
 
     // cout << "evaluate=" << result << endl;
     return result;

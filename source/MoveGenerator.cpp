@@ -362,7 +362,25 @@ void MoveGenerator::score_moves(class MoveList& list, const class Board& board)
     for (int i = 0; i < n; i++)
     {
         Move_t move = list[i];
-        U16 score = MVVLVA[board[move_to(move)] >> 1][board[move_from(move)] >> 1];
+        U8 from = move_from(move);
+        U8 to = move_to(move);
+        U16 score = MVVLVA[board[to] >> 1][board[from] >> 1];
+
+        // Special case
+        // xwing on same square color (DARK) as the deathstar is worth more
+        // since it can capture the deathstar
+        if ((board[to] & (~1)) == XWING)
+        {
+            int row = (to & 56) >> 3;
+            int file = to & 7;
+            int square_color = (row + file) & 1;
+
+            if (square_color == 0)
+            {
+                score += 1;
+            }
+        }
+
         move_add_score(&move, score);
         list.set_move(i, move);
     }

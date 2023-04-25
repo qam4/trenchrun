@@ -147,8 +147,12 @@ int Board::evaluate()
     int result = 0;
     result = 100 * (pop_count(bitboards[WHITE_DEATHSTAR]) - pop_count(bitboards[BLACK_DEATHSTAR]))
         + 5 * (pop_count(bitboards[WHITE_TIEFIGHTER]) - pop_count(bitboards[BLACK_TIEFIGHTER]))
-        + 3 * (pop_count(bitboards[WHITE_XWING] & DARK_SQUARES) - pop_count(bitboards[BLACK_XWING] & DARK_SQUARES))
-        + 1 * (pop_count(bitboards[WHITE_XWING] & LIGHT_SQUARES) - pop_count(bitboards[BLACK_XWING] & LIGHT_SQUARES));
+        + 3
+            * (pop_count(bitboards[WHITE_XWING] & DARK_SQUARES)
+               - pop_count(bitboards[BLACK_XWING] & DARK_SQUARES))
+        + 1
+            * (pop_count(bitboards[WHITE_XWING] & LIGHT_SQUARES)
+               - pop_count(bitboards[BLACK_XWING] & LIGHT_SQUARES));
 
     // cout << "evaluate=" << result << endl;
     return result;
@@ -172,11 +176,30 @@ int Board::is_game_over()
 
 Move_t Board::search(int depth)
 {
+    search_start_time = clock();
     search_ply = 0;
-#if 0
-    Move_t move = minimax_root(depth, side_to_move() == WHITE);
-    Move_t move = negamax_root(depth);
-#endif
-    Move_t move = alphabeta_root(depth);
-    return move;
+
+    // Iterative deepening
+    Move_t last_best_move = 0;
+    for (int current_depth = 1; current_depth <= depth; current_depth++)
+    {
+        Move_t move = alphabeta_root(current_depth);
+        cout << "depth=" << current_depth << " best_move=" << Output::move_fancy(move, *this)
+             << endl;
+        if (is_search_time_over())
+        {
+            break;
+        }
+        last_best_move = move;
+    }
+
+    return last_best_move;
+}
+
+bool Board::is_search_time_over()
+{
+    clock_t current_time = clock();
+    clock_t elapsed_secs = current_time - search_start_time;
+
+    return (elapsed_secs > MAX_SEARCH_TIME);
 }

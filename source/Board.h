@@ -28,6 +28,9 @@ private:
     int game_ply;
     int search_ply;
 
+    clock_t search_start_time;
+
+
 public:
     Board();
     bool is_blank();
@@ -47,6 +50,7 @@ public:
     int alphabeta(int alpha, int beta, int depth);
     Move_t alphabeta_root(int depth);
     int quiesce(int alpha, int beta);
+    bool is_search_time_over();
 
     U8 operator[](const int square) const; // return piece on that square
     U64 bitboard(const int type) const;

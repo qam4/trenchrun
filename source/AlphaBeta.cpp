@@ -9,6 +9,12 @@ int Board::alphabeta(int alpha, int beta, int depth)
     int i, n, value;
     Move_t move;
 
+    // Check time left every 2048 moves
+    if ((searched_moves & 2047) && is_search_time_over())
+    {
+        return 0;
+    }
+
     if (is_game_over())
     {
         return -MATE_SCORE + search_ply;

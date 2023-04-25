@@ -3,6 +3,9 @@
 #include "MoveList.h"
 
 // https://www.chessprogramming.org/Alpha-Beta
+// http://www.seanet.com/~brucemo/topics/alphabeta.htm
+// alpha: best score that can be forced by some means
+// beta: worst-case scenario for the opponent
 int Board::alphabeta(int alpha, int beta, int depth)
 {
     MoveList list;
@@ -23,9 +26,7 @@ int Board::alphabeta(int alpha, int beta, int depth)
     // Leaf node
     if (depth == 0)
     {
-        int who2move = (side_to_move() == WHITE) ? 1 : -1;
-        return who2move * evaluate();
-        // return quiesce(alpha, beta);
+        return quiesce(alpha, beta);
     }
 
     MoveGenerator::add_all_moves(list, *this, side_to_move());

@@ -29,7 +29,7 @@ search: "chess programming move ordering evaluate every move leaf"
 - Misc
 https://www.dailychess.com/rival/programming/index.php
 https://healeycodes.com/building-my-own-chess-engine
-
+http://www.seanet.com/~brucemo/topics/topics.htm
 
 
 

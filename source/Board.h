@@ -8,6 +8,11 @@
 
 #include "Common.h"
 #include "Move.h"
+#include "Zobrist.h"
+
+int pop_count(U64 x);
+bool inline is_valid_piece(U8 piece) { return (piece >= WHITE_WALL) && (piece <= BLACK_DEATHSTAR); }
+bool inline is_valid_square(int square) { return (square >= 0) && (square <= 64); }
 
 class Board
 {
@@ -30,6 +35,7 @@ private:
 
     clock_t search_start_time;
 
+    Zobrist zobrist;
 
 public:
     Board();
@@ -60,6 +66,8 @@ public:
     int get_game_ply() const { return game_ply; };
     void set_side_to_move(U8 side) { irrev.side_to_move = side; };
     void set_last_move_sideways(U8 val) { irrev.last_move_sideways = val; };
+
+    U64 get_hash();
 };
 
 #endif /* BOARD_H */

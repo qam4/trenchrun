@@ -13,6 +13,7 @@
 #include "MoveList.h"
 #include "Output.h"
 #include "Parser.h"
+#include "ValidateMove.h"
 
 using namespace std;
 #define SEARCH_DEPTH 64

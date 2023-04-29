@@ -14,24 +14,54 @@ https://code.google.com/archive/p/javalin-chess/wikis/README.wiki
 https://chess.stackexchange.com/questions/37309/move-generation-for-sliding-pieces-and-hyperbola-quintessence
 https://www.chessprogramming.org/Hyperbola_Quintessence
 
-https://www.techfak.uni-bielefeld.de/~skopp/Lehre/STdKI_SS10/VL3-GamePlaying.pdf
+- Move search (Algos, position evaluation, hashing, move ordering, ...)
+https://www.josherv.in/2022/12/17/chess-2/: Writing a Chess Engine: Move Selection
+https://www.cs.unm.edu/~aaron/downloads/qian_search.pdf: Game Tree Searching and pruning
+https://web.archive.org/web/20060107101829/http://chess.verhelst.org/1997/03/10/search/: Chess Tree Search
 
-- Move selection (Algos, position evaluation, hashing, move ordering, ...)
-https://www.ics.uci.edu/~eppstein/180a/970424.html
-https://www.cs.unm.edu/~aaron/downloads/qian_search.pdf
-https://www.josherv.in/2022/12/17/chess-2/
+  - Algos
+    - minimax
+    https://www.chessprogramming.org/Minimax
 
-- MVV LVA
-https://rustic-chess.org/search/ordering/mvv_lva.html
+    - negamax
+    https://www.chessprogramming.org/Negamax
 
-search: "chess programming move ordering evaluate every move leaf"
+    - alpha-beta
+    https://www.chessprogramming.org/Alpha-Beta
+    http://web.archive.org/web/20080216030608/http://www.seanet.com/~brucemo/topics/alphabeta.htm
+    https://mediocrechess.blogspot.com/2006/12/guide-alpha-beta-search.html?m=1
 
-- Misc
+  - Position evaluation
+  https://www.chessprogramming.org/Evaluation
+
+  - Move ordering
+  https://sites.google.com/site/tscpchess/move-ordering
+
+  - Move scoring
+    - MVV LVA
+    https://rustic-chess.org/search/ordering/mvv_lva.html
+
+  - Transposition table, hashing, zobrist
+  https://www.ics.uci.edu/~eppstein/180a/970424.html: Hashing and Move Ordering
+  http://web.archive.org/web/20070809015843/http://www.seanet.com/~brucemo/topics/hashing.htm
+  http://mediocrechess.blogspot.com/2007/01/guide-zobrist-keys.html?m=1
+
+
+- Misc blogs on game engines
+http://web.archive.org/web/20080216031116/http://www.seanet.com/~brucemo/topics/topics.htm
 https://www.dailychess.com/rival/programming/index.php
 https://healeycodes.com/building-my-own-chess-engine
-http://www.seanet.com/~brucemo/topics/topics.htm
+http://www.fierz.ch/strategy1.htm
+http://www.fierz.ch/strategy2.htm
+https://mediocrechess.blogspot.com/?m=0
+https://code.google.com/archive/p/javalin-chess/wikis/README.wiki
+https://www.techfak.uni-bielefeld.de/~skopp/Lehre/STdKI_SS10/VL3-GamePlaying.pdf
+
+- Engines
+https://github.com/maksimKorzh/wukongJS/blob/main/wukong.js
+https://github.com/nescitus/cpw-engine
+https://crates.io/crates/littlewing
 
 
-
-
+- CMAKE
 https://github.com/friendlyanon/cmake-init

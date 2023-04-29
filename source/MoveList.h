@@ -8,6 +8,7 @@
 
 #include "Common.h"
 #include "Board.h"
+#include "ValidateMove.h"
 
 const int MAX_MOVELIST_LENGTH = 256;
 

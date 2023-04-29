@@ -25,6 +25,7 @@ add_executable(trenchrun_test
     source/TestMove.cpp
     source/TestMoveList.cpp
     source/TestMoveGenerator.cpp
+    source/TestZobrist.cpp
     source/TestsRunner.cpp
     )
 target_link_libraries(trenchrun_test PRIVATE trenchrun_lib)

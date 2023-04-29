@@ -29,7 +29,6 @@ const int MAX_PLY = 64;
 const int MAX_SEARCH_TIME = 1000000; // max search time in usec
 
 // PIECES
-
 const U8 EMPTY = 0;
 
 const U8 WHITE = 0;
@@ -48,6 +47,7 @@ const U8 WHITE_TIEFIGHTER = 6; // t
 const U8 BLACK_TIEFIGHTER = 7; // T
 const U8 WHITE_DEATHSTAR = 8;  // @
 const U8 BLACK_DEATHSTAR = 9;  // *
+const int NUM_PIECES = 10;
 
 const string PIECE_CHARS = "-E+~xXtT@*";
 
@@ -133,6 +133,7 @@ const int G8 = 62;
 const int H8 = 63;
 
 const int NULL_SQUARE = 64;
+const int NUM_SQUARES = 64;
 
 // BITBOARD FILES
 

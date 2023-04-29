@@ -28,6 +28,8 @@ add_library(
     source/NegaMax.cpp
     source/AlphaBeta.cpp
     source/Quiesce.cpp
+    source/Zobrist.cpp
+    source/ValidateMove.cpp
 )
 
 target_include_directories(

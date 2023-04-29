@@ -7,6 +7,19 @@
 
 #include "MoveGenerator.h"
 #include "MoveList.h"
+// #include "Zobrist.h"
+
+// Count number of bits set to 1 in 64 bit word
+int pop_count(U64 x)
+{
+    int count = 0;
+    while (x)
+    {
+        count++;
+        x &= x - 1;  // reset LS1B
+    }
+    return count;
+}
 
 Board::Board()
 {
@@ -46,6 +59,7 @@ void Board::remove_piece(int square)
 
 void Board::reset()
 {
+    zobrist = Zobrist();
     for (int i = 0; i < 64; i++)
     {
         board_array[i] = EMPTY;
@@ -202,4 +216,9 @@ bool Board::is_search_time_over()
     clock_t elapsed_secs = current_time - search_start_time;
 
     return (elapsed_secs > MAX_SEARCH_TIME);
+}
+
+U64 Board::get_hash()
+{
+    return zobrist.get_zobrist_key(*this);
 }

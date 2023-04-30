@@ -61,6 +61,7 @@ https://www.techfak.uni-bielefeld.de/~skopp/Lehre/STdKI_SS10/VL3-GamePlaying.pdf
 https://github.com/maksimKorzh/wukongJS/blob/main/wukong.js
 https://github.com/nescitus/cpw-engine
 https://crates.io/crates/littlewing
+https://github.com/KierenP/Halogen/tree/master
 
 
 - CMAKE

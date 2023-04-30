@@ -30,6 +30,7 @@ add_library(
     source/Quiesce.cpp
     source/Zobrist.cpp
     source/ValidateMove.cpp
+    source/Hash.cpp
 )
 
 target_include_directories(

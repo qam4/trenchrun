@@ -192,6 +192,8 @@ Move_t Board::search(int depth)
 {
     search_start_time = clock();
     search_ply = 0;
+    reset_hash_table();
+
 
     // Iterative deepening
     Move_t last_best_move = 0;

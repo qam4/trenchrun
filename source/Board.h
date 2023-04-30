@@ -9,6 +9,7 @@
 #include "Common.h"
 #include "Move.h"
 #include "Zobrist.h"
+#include "Hash.h"
 
 int pop_count(U64 x);
 bool inline is_valid_piece(U8 piece) { return (piece >= WHITE_WALL) && (piece <= BLACK_DEATHSTAR); }
@@ -32,10 +33,10 @@ private:
     int searched_moves;
     int game_ply;
     int search_ply;
-
     clock_t search_start_time;
-
     Zobrist zobrist;
+
+
 
 public:
     Board();
@@ -68,6 +69,8 @@ public:
     void set_last_move_sideways(U8 val) { irrev.last_move_sideways = val; };
 
     U64 get_hash();
+    int probe_hash(int depth, int alpha, int beta, Move_t &best_move);
+    void record_hash(int depth, int val, int flags, Move_t best_move);
 };
 
 #endif /* BOARD_H */

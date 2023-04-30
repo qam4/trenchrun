@@ -10,7 +10,7 @@ int Board::alphabeta(int alpha, int beta, int depth)
 {
     MoveList list;
     int i, n, value;
-    Move_t move;
+    Move_t move, best_move = 0;
 
     // Check time left every 2048 moves
     if ((searched_moves & 2047) && is_search_time_over())
@@ -18,15 +18,25 @@ int Board::alphabeta(int alpha, int beta, int depth)
         return 0;
     }
 
+    int hash_flag = HASH_ALPHA;
+    if ((value = probe_hash(depth, alpha, beta, best_move)) != UNKNOWN_SCORE)
+    {
+        return value;
+    }
+
     if (is_game_over())
     {
-        return -MATE_SCORE + search_ply;
+        value = -MATE_SCORE + search_ply;
+        record_hash(depth, value, HASH_EXACT, best_move);
+        return value;
     }
 
     // Leaf node
     if (depth == 0)
     {
-        return quiesce(alpha, beta);
+        value = quiesce(alpha, beta);
+        record_hash(depth, value, HASH_EXACT, best_move);
+        return value;
     }
 
     MoveGenerator::add_all_moves(list, *this, side_to_move());
@@ -43,10 +53,17 @@ int Board::alphabeta(int alpha, int beta, int depth)
         undo_move(move);
         if (value >= beta)
         {
+            record_hash(depth, beta, HASH_BETA, best_move);
             return beta;  // fail hard beta-cutoff
         }
-        alpha = max(value, alpha);
+        if (value > alpha)
+        {
+            hash_flag = HASH_EXACT;
+            best_move = move;
+            alpha = value;
+        }
     }
+    record_hash(depth, alpha, hash_flag, best_move);
     return alpha;
 }
 

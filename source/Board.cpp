@@ -7,6 +7,7 @@
 
 #include "MoveGenerator.h"
 #include "MoveList.h"
+#include "PrincipalVariation.h"
 // #include "Zobrist.h"
 
 // Count number of bits set to 1 in 64 bit word
@@ -70,7 +71,7 @@ void Board::reset()
     }
     irrev.last_move_sideways = 0;
     irrev.side_to_move = WHITE;
-    game_ply = 1;
+    game_ply = 0;
 }
 
 U8 Board::operator[](const int square) const
@@ -192,18 +193,20 @@ Move_t Board::search(int depth)
 {
     search_start_time = clock();
     search_ply = 0;
-    search_best_move = 0;
     searched_moves = 0;
     reset_hash_table();
-
+    reset_pv_table();
 
     // Iterative deepening
     Move_t last_best_move = 0;
     for (int current_depth = 1; current_depth <= depth; current_depth++)
     {
         alphabeta(-MAX_SCORE, MAX_SCORE, current_depth);
-        cout << "depth=" << current_depth << " best_move=" << Output::move_fancy(search_best_move, *this)
-             << endl;
+        search_best_move = pv_table[0];
+        cout << "depth=" << current_depth;
+        cout << " pv=";
+        print_pv();
+        cout << endl;
         if (is_search_time_over())
         {
             break;

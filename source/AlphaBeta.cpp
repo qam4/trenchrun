@@ -1,6 +1,7 @@
 #include "Board.h"
 #include "MoveGenerator.h"
 #include "MoveList.h"
+#include "PrincipalVariation.h"
 
 // https://www.chessprogramming.org/Alpha-Beta
 // http://www.seanet.com/~brucemo/topics/alphabeta.htm
@@ -11,6 +12,8 @@ int Board::alphabeta(int alpha, int beta, int depth)
     MoveList list;
     int i, n, value;
     Move_t move, best_move = 0;
+
+    pv_length[search_ply] = search_ply;
 
     // Check time left every 2048 moves
     if ((searched_moves & 2047) && is_search_time_over())
@@ -61,13 +64,9 @@ int Board::alphabeta(int alpha, int beta, int depth)
             hash_flag = HASH_EXACT;
             best_move = move;
             alpha = value;
-            if (search_ply == 0)
-            {
-                search_best_move = move;
-            }
+            store_pv_move(move);
         }
     }
     record_hash(depth, alpha, hash_flag, best_move);
     return alpha;
 }
-

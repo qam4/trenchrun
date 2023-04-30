@@ -70,6 +70,9 @@ public:
     U64 get_hash();
     int probe_hash(int depth, int alpha, int beta, Move_t &best_move);
     void record_hash(int depth, int val, int flags, Move_t best_move);
+
+    void store_pv_move(Move_t move);
+    void print_pv();
 };
 
 #endif /* BOARD_H */

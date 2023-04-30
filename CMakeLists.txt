@@ -31,6 +31,7 @@ add_library(
     source/Zobrist.cpp
     source/ValidateMove.cpp
     source/Hash.cpp
+    source/PrincipalVariation.cpp
 )
 
 target_include_directories(

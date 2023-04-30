@@ -1,6 +1,7 @@
 #include "Board.h"
 #include "MoveGenerator.h"
 #include "MoveList.h"
+#include "PrincipalVariation.h"
 
 // https://www.chessprogramming.org/Quiescence_Search
 int Board::quiesce(int alpha, int beta)
@@ -8,6 +9,8 @@ int Board::quiesce(int alpha, int beta)
     MoveList list;
     int i, n, value;
     Move_t move;
+
+    pv_length[search_ply] = search_ply;
 
     // Check time left every 2048 moves
     if ((searched_moves & 2047) && is_search_time_over())

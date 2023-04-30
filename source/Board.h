@@ -30,13 +30,13 @@ private:
         U8 last_move_sideways;
     } irrev;
 
+    Zobrist zobrist;
+
     int searched_moves;
     int game_ply;
     int search_ply;
     clock_t search_start_time;
-    Zobrist zobrist;
-
-
+    Move_t search_best_move;
 
 public:
     Board();
@@ -55,7 +55,6 @@ public:
     int negamax(int depth);
     Move_t negamax_root(int depth);
     int alphabeta(int alpha, int beta, int depth);
-    Move_t alphabeta_root(int depth);
     int quiesce(int alpha, int beta);
     bool is_search_time_over();
 

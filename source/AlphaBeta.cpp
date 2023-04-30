@@ -61,51 +61,13 @@ int Board::alphabeta(int alpha, int beta, int depth)
             hash_flag = HASH_EXACT;
             best_move = move;
             alpha = value;
+            if (search_ply == 0)
+            {
+                search_best_move = move;
+            }
         }
     }
     record_hash(depth, alpha, hash_flag, best_move);
     return alpha;
 }
 
-// This function returns the best move
-Move_t Board::alphabeta_root(int depth)
-{
-    MoveList list;
-    int i, n, value;
-    Move_t move, bestmove = 0;
-    int alpha = -MAX_SCORE;
-    int beta = MAX_SCORE;
-
-    // Reset searched_moves
-    searched_moves = 0;
-
-    MoveGenerator::add_all_moves(list, *this, side_to_move());
-    MoveGenerator::score_moves(list, *this);
-    cout << Output::movelist(list, *this, true, false);
-    n = list.length();
-
-    for (i = 0; i < n; i++)
-    {
-        searched_moves++;
-        list.sort_moves(i);
-        move = list[i];
-        do_move(move);
-        value = -alphabeta(-beta, -alpha, depth - 1);
-        undo_move(move);
-        cout << Output::move_fancy(move, *this) << " (" << dec << value << "), ";
-        if ((i % 4 == 3) || (i == n - 1))
-        {
-            cout << endl;
-        }
-        if (value >= beta)
-        {
-            return move;  // fail hard beta-cutoff
-        }
-        if (value > alpha)
-        {
-            alpha = value;
-            bestmove = move;
-        }
-    }
-    return bestmove;
-}

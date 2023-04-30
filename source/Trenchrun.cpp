@@ -98,6 +98,17 @@ int main()
                 cout << "<color> should be black or white" << endl;
             }
         }
+        else if (line.rfind("colors ", 0) == 0)
+        {
+            if (line.rfind("on", 7) == 7)
+            {
+                Output::set_colors_enabled(true);
+            }
+            else if (line.rfind("off", 7) == 7)
+            {
+                Output::set_colors_enabled(false);
+            }
+        }
     }
     cout << "Goodbye." << endl;
 }
@@ -108,5 +119,6 @@ void print_help()
             "  quit                      Exit this program\n"
             "  help                      Display this screen\n"
             "  move <move>               Play <move> on the board\n"
-            "  play <color>              Let computer play <color>\n";
+            "  play <color>              Let computer play <color>\n"
+            "  colors <on|off>\n";
 }

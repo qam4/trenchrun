@@ -10,6 +10,8 @@
 #define MAX_ROW 6
 #define MAX_COL 6
 
+bool Output::colors_enabled { false };
+
 string Output::board(const class Board board)
 {
     stringstream ss;
@@ -52,16 +54,24 @@ string Output::bitboard(U64 bb)
 string Output::piece(U8 piece)
 {
     stringstream ss;
-    if (piece & BLACK)
+    if (Output::is_colors_enabled())
     {
-        ss << "\033[91m";  // Red
+        if (piece & BLACK)
+        {
+            ss << "\033[91m";  // Red
+        }
+        else if (piece)
+        {
+            ss << "\033[97m";  // White
+        }
+        ss << PIECE_CHARS[piece];
+        ss << "\033[0m";
     }
-    else if (piece)
+    else
     {
-        ss << "\033[97m";  // White
+        ss << PIECE_CHARS[piece];
     }
-    ss << PIECE_CHARS[piece];
-    ss << "\033[0m";
+
     return ss.str();
 }
 

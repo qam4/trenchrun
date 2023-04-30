@@ -24,6 +24,11 @@ public:
     static string board_with_movelist(const class MoveList &list, const class Board &board);
     static string square(U8 square);
     static string piece(U8 piece);
+    static void set_colors_enabled(bool enable) { colors_enabled = enable; }
+    static bool is_colors_enabled() { return colors_enabled == true; }
+
+private:
+    static bool colors_enabled;
 };
 
 #endif /* OUTPUT_H */

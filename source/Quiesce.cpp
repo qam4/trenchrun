@@ -44,6 +44,9 @@ int Board::quiesce(int alpha, int beta)
     MoveGenerator::score_moves(list, *this);
     n = list.length();
 
+    // sort PV move
+    sort_pv_move(list, 0);
+
     for (i = 0; i < n; i++)
     {
         searched_moves++;

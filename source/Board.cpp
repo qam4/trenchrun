@@ -117,6 +117,7 @@ void Board::do_move(Move_t move)
 
     game_ply++;
     search_ply++;
+    max_search_ply = max(max_search_ply, search_ply);
 }
 
 void Board::undo_move(Move_t move)
@@ -193,7 +194,6 @@ Move_t Board::search(int depth)
 {
     search_start_time = clock();
     search_ply = 0;
-    searched_moves = 0;
     reset_hash_table();
     reset_pv_table();
 
@@ -201,10 +201,16 @@ Move_t Board::search(int depth)
     Move_t last_best_move = 0;
     for (int current_depth = 1; current_depth <= depth; current_depth++)
     {
+        follow_pv = 1;
+        max_search_ply = 0;
+        searched_moves = 0;
+
         alphabeta(-MAX_SCORE, MAX_SCORE, current_depth);
         search_best_move = pv_table[0];
         cout << "depth=" << current_depth;
-        cout << " pv=";
+        cout << ", search ply=" << max_search_ply;
+        cout << ", searched moves=" << searched_moves;
+        cout << ", pv=";
         print_pv();
         cout << endl;
         if (is_search_time_over())

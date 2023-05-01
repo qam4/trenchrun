@@ -46,6 +46,9 @@ int Board::alphabeta(int alpha, int beta, int depth)
     MoveGenerator::score_moves(list, *this);
     n = list.length();
 
+    // sort PV move
+    sort_pv_move(list, best_move);
+
     for (i = 0; i < n; i++)
     {
         searched_moves++;

@@ -35,8 +35,11 @@ private:
     int searched_moves;
     int game_ply;
     int search_ply;
+    int max_search_ply;
     clock_t search_start_time;
     Move_t search_best_move;
+
+    int follow_pv;
 
 public:
     Board();
@@ -73,6 +76,7 @@ public:
 
     void store_pv_move(Move_t move);
     void print_pv();
+    void sort_pv_move(class MoveList &list, Move_t best_move);
 };
 
 #endif /* BOARD_H */

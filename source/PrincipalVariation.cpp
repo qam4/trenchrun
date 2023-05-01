@@ -6,6 +6,7 @@
 #include "PrincipalVariation.h"
 
 #include "Board.h"
+#include "MoveList.h"
 #include "Output.h"
 
 Move_t pv_table[MAX_PLY * MAX_PLY];
@@ -57,4 +58,35 @@ void Board::store_pv_move(Move_t move)
         pv_table[search_ply * MAX_PLY + next_ply] = pv_table[(search_ply + 1) * MAX_PLY + next_ply];
     }
     pv_length[search_ply] = pv_length[search_ply + 1];
+}
+
+// sort PV move
+void Board::sort_pv_move(class MoveList& list, Move_t best_move)
+{
+    // sort hash table move
+    for (int i = 0; i < list.length(); i++)
+    {
+        Move_t move = list[i];
+        if (list[i] == best_move)
+        {
+            move_add_score(&move, 1000);
+            return;
+        }
+    }
+
+    // sort PV move
+    if (search_ply && follow_pv)
+    {
+        follow_pv = 0;
+        for (int i = 0; i < list.length(); i++)
+        {
+            Move_t move = list[i];
+            if (move == pv_table[search_ply])
+            {
+                follow_pv = 1;
+                move_add_score(&move, 500);
+                break;
+            }
+        }
+    }
 }

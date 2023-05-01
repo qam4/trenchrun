@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Board class | trenchrun</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">trenchrun</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li>
+              <a href="pages.html">Pages</a>
+              <ol>
+                <li><a href="about.html">About</a></li>
+              </ol>
+            </li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          Board <span class="m-thin">class</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="Board_8h.html">&lt;Board.h&gt;</a></div>
+        </h1>
+        <p><span></span></p>
+        <div class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-doc">
+            <dt id="a9ee491d4fea680cf69b033374a9fdfcb">
+              <span class="m-doc-wrap-bumper"><a href="#a9ee491d4fea680cf69b033374a9fdfcb" class="m-doc-self">Board</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt id="a2def883835fabfee9698d2c943eefddb">
+              <span class="m-doc-wrap-bumper">auto <a href="#a2def883835fabfee9698d2c943eefddb" class="m-doc-self">is_blank</a>(</span><span class="m-doc-wrap">) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a87e9284d63304c33d00ca99a54aefc40">
+              <span class="m-doc-wrap-bumper">void <a href="#a87e9284d63304c33d00ca99a54aefc40" class="m-doc-self">add_piece</a>(</span><span class="m-doc-wrap"><a href="Types_8h.html#a3cb25ca6f51f003950f9625ff05536fc" class="m-doc">U8</a> piece,
+              int square)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a0b3992c8f0562e06bc92a87530c21027">
+              <span class="m-doc-wrap-bumper">void <a href="#a0b3992c8f0562e06bc92a87530c21027" class="m-doc-self">remove_piece</a>(</span><span class="m-doc-wrap">int square)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aaef819a8d1a10c35d9f802195802236e">
+              <span class="m-doc-wrap-bumper">void <a href="#aaef819a8d1a10c35d9f802195802236e" class="m-doc-self">reset</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a786cc9ce91804c1ee2c9ddc34ccd0e78">
+              <span class="m-doc-wrap-bumper">void <a href="#a786cc9ce91804c1ee2c9ddc34ccd0e78" class="m-doc-self">do_move</a>(</span><span class="m-doc-wrap"><a href="Move_8h.html#a5db0acaa0ed15a66740fd0182605dd40" class="m-doc">Move_<wbr />t</a> move)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a9fe508405b79d5952ca1d8bf1abfff08">
+              <span class="m-doc-wrap-bumper">void <a href="#a9fe508405b79d5952ca1d8bf1abfff08" class="m-doc-self">undo_move</a>(</span><span class="m-doc-wrap"><a href="Move_8h.html#a5db0acaa0ed15a66740fd0182605dd40" class="m-doc">Move_<wbr />t</a> move)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a3669aa7482204b35711b2040be2aff31">
+              <span class="m-doc-wrap-bumper">auto <a href="#a3669aa7482204b35711b2040be2aff31" class="m-doc-self">evaluate</a>(</span><span class="m-doc-wrap">) -&gt; int</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae5f940eb80b92c4bee38c299c2d2552c">
+              <span class="m-doc-wrap-bumper">auto <a href="#ae5f940eb80b92c4bee38c299c2d2552c" class="m-doc-self">is_game_over</a>(</span><span class="m-doc-wrap">) -&gt; int</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aa38ec1f36aa1dd301b840c377809e204">
+              <span class="m-doc-wrap-bumper">auto <a href="#aa38ec1f36aa1dd301b840c377809e204" class="m-doc-self">search</a>(</span><span class="m-doc-wrap">int depth) -&gt; <a href="Move_8h.html#a5db0acaa0ed15a66740fd0182605dd40" class="m-doc">Move_<wbr />t</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a7baf34077da157bc737026f1d6ff69ab">
+              <span class="m-doc-wrap-bumper">auto <a href="#a7baf34077da157bc737026f1d6ff69ab" class="m-doc-self">minimax</a>(</span><span class="m-doc-wrap">int depth,
+              bool maximizing_player) -&gt; int</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a708d4ae369eb81affe95cf6ca609f416">
+              <span class="m-doc-wrap-bumper">auto <a href="#a708d4ae369eb81affe95cf6ca609f416" class="m-doc-self">minimax_root</a>(</span><span class="m-doc-wrap">int depth,
+              bool maximizing_player) -&gt; <a href="Move_8h.html#a5db0acaa0ed15a66740fd0182605dd40" class="m-doc">Move_<wbr />t</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a9d361bdf115e3840f9b7cf9c6584d615">
+              <span class="m-doc-wrap-bumper">auto <a href="#a9d361bdf115e3840f9b7cf9c6584d615" class="m-doc-self">negamax</a>(</span><span class="m-doc-wrap">int depth) -&gt; int</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="abb7b321cd1ae83e4fd9e3c1aa57fa4bb">
+              <span class="m-doc-wrap-bumper">auto <a href="#abb7b321cd1ae83e4fd9e3c1aa57fa4bb" class="m-doc-self">negamax_root</a>(</span><span class="m-doc-wrap">int depth) -&gt; <a href="Move_8h.html#a5db0acaa0ed15a66740fd0182605dd40" class="m-doc">Move_<wbr />t</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2632214a908436ca2c5382efa7bf3652">
+              <span class="m-doc-wrap-bumper">auto <a href="#a2632214a908436ca2c5382efa7bf3652" class="m-doc-self">alphabeta</a>(</span><span class="m-doc-wrap">int alpha,
+              int beta,
+              int depth) -&gt; int</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a8c3c0c411cb2c285ed64053e2fbfd0f7">
+              <span class="m-doc-wrap-bumper">auto <a href="#a8c3c0c411cb2c285ed64053e2fbfd0f7" class="m-doc-self">quiesce</a>(</span><span class="m-doc-wrap">int alpha,
+              int beta) -&gt; int</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a560edd9c9ff0a21feff57a9a3e4f9a0e">
+              <span class="m-doc-wrap-bumper">auto <a href="#a560edd9c9ff0a21feff57a9a3e4f9a0e" class="m-doc-self">is_search_time_over</a>(</span><span class="m-doc-wrap">) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a1da3ed6a3bb90346ebec749a8d4a7e3f">
+              <span class="m-doc-wrap-bumper">auto <a href="#a1da3ed6a3bb90346ebec749a8d4a7e3f" class="m-doc-self">operator[]</a>(</span><span class="m-doc-wrap">const int square) const -&gt; <a href="Types_8h.html#a3cb25ca6f51f003950f9625ff05536fc" class="m-doc">U8</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a5dd8339a7ed73a033a515cd662905dbb">
+              <span class="m-doc-wrap-bumper">auto <a href="#a5dd8339a7ed73a033a515cd662905dbb" class="m-doc-self">bitboard</a>(</span><span class="m-doc-wrap">const int type) const -&gt; <a href="Types_8h.html#a24c386d3758eba951eb7532fdbb45804" class="m-doc">U64</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="af11789e16f3ea44df1fd9b7ec749b625">
+              <span class="m-doc-wrap-bumper">auto <a href="#af11789e16f3ea44df1fd9b7ec749b625" class="m-doc-self">side_to_move</a>(</span><span class="m-doc-wrap">) const -&gt; <a href="Types_8h.html#a3cb25ca6f51f003950f9625ff05536fc" class="m-doc">U8</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aa1a21a8d3eaf5dcd363f9b8e539e3929">
+              <span class="m-doc-wrap-bumper">auto <a href="#aa1a21a8d3eaf5dcd363f9b8e539e3929" class="m-doc-self">last_move_sideways</a>(</span><span class="m-doc-wrap">) const -&gt; <a href="Types_8h.html#a3cb25ca6f51f003950f9625ff05536fc" class="m-doc">U8</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a050c5993a6cb372766d5fbb800259f94">
+              <span class="m-doc-wrap-bumper">auto <a href="#a050c5993a6cb372766d5fbb800259f94" class="m-doc-self">get_searched_moves</a>(</span><span class="m-doc-wrap">) const -&gt; int</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="af8da7e0f20297cfdc5357928ccfb4ca7">
+              <span class="m-doc-wrap-bumper">auto <a href="#af8da7e0f20297cfdc5357928ccfb4ca7" class="m-doc-self">get_game_ply</a>(</span><span class="m-doc-wrap">) const -&gt; int</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ade5213ce72f9c6dbb8ece8929b9f6f51">
+              <span class="m-doc-wrap-bumper">void <a href="#ade5213ce72f9c6dbb8ece8929b9f6f51" class="m-doc-self">set_side_to_move</a>(</span><span class="m-doc-wrap"><a href="Types_8h.html#a3cb25ca6f51f003950f9625ff05536fc" class="m-doc">U8</a> side)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a3aefce48f6e73ccef2bab8cc5601e0ba">
+              <span class="m-doc-wrap-bumper">void <a href="#a3aefce48f6e73ccef2bab8cc5601e0ba" class="m-doc-self">set_last_move_sideways</a>(</span><span class="m-doc-wrap"><a href="Types_8h.html#a3cb25ca6f51f003950f9625ff05536fc" class="m-doc">U8</a> val)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="afbdd7af96cb9d1797c7fbf41a195c45c">
+              <span class="m-doc-wrap-bumper">auto <a href="#afbdd7af96cb9d1797c7fbf41a195c45c" class="m-doc-self">get_hash</a>(</span><span class="m-doc-wrap">) -&gt; <a href="Types_8h.html#a24c386d3758eba951eb7532fdbb45804" class="m-doc">U64</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a5c76e47a21b159cb9a0261dd878034a6">
+              <span class="m-doc-wrap-bumper">auto <a href="#a5c76e47a21b159cb9a0261dd878034a6" class="m-doc-self">probe_hash</a>(</span><span class="m-doc-wrap">int depth,
+              int alpha,
+              int beta,
+              <a href="Move_8h.html#a5db0acaa0ed15a66740fd0182605dd40" class="m-doc">Move_<wbr />t</a>&amp; best_move) -&gt; int</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2928a08eb8e9855420ca638dd0293379">
+              <span class="m-doc-wrap-bumper">void <a href="#a2928a08eb8e9855420ca638dd0293379" class="m-doc-self">record_hash</a>(</span><span class="m-doc-wrap">int depth,
+              int val,
+              int flags,
+              <a href="Move_8h.html#a5db0acaa0ed15a66740fd0182605dd40" class="m-doc">Move_<wbr />t</a> best_move)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a90451a62f9434586ffd11a2067635131">
+              <span class="m-doc-wrap-bumper">void <a href="#a90451a62f9434586ffd11a2067635131" class="m-doc-self">store_pv_move</a>(</span><span class="m-doc-wrap"><a href="Move_8h.html#a5db0acaa0ed15a66740fd0182605dd40" class="m-doc">Move_<wbr />t</a> move)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="afa13e0838ca17f3b77e20049352000f5">
+              <span class="m-doc-wrap-bumper">void <a href="#afa13e0838ca17f3b77e20049352000f5" class="m-doc-self">print_pv</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a045aba0c567bdc49fe12dee1303bddab">
+              <span class="m-doc-wrap-bumper">void <a href="#a045aba0c567bdc49fe12dee1303bddab" class="m-doc-self">sort_pv_move</a>(</span><span class="m-doc-wrap">class <a href="classMoveList.html" class="m-doc">MoveList</a>&amp; list,
+              <a href="Move_8h.html#a5db0acaa0ed15a66740fd0182605dd40" class="m-doc">Move_<wbr />t</a> best_move)</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v1.js"></script>
+<script src="searchdata-v1.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>trenchrun. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>
